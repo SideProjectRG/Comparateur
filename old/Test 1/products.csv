@@ -1,0 +1,10 @@
+product,merchant,price,image,link
+iPhone 16,Amazon,959,https://picsum.photos/200?1,https://www.amazon.fr
+iPhone 16,Fnac,979,https://picsum.photos/200?1,https://www.fnac.com
+iPhone 16,Darty,989,https://picsum.photos/200?1,https://www.darty.com
+PlayStation 5,Amazon,499,https://picsum.photos/200?2,https://www.amazon.fr
+PlayStation 5,Fnac,489,https://picsum.photos/200?2,https://www.fnac.com
+PlayStation 5,Cdiscount,479,https://picsum.photos/200?2,https://www.cdiscount.com
+Nintendo Switch,Amazon,299,https://picsum.photos/200?3,https://www.amazon.fr
+Nintendo Switch,Fnac,289,https://picsum.photos/200?3,https://www.fnac.com
+Nintendo Switch,Cdiscount,279,https://picsum.photos/200?3,https://www.cdiscount.com

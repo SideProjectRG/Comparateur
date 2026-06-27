@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RunGuide - Trouver ma paire</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo runguide fond blanc.svg" alt="RunGuide">
+    </div>
+
+    <nav class="nav-links">
+      <a href="#" class="active">Trouver ma paire</a>
+      <a href="#">Ma prochaine course</a>
+      <a href="#">Mes records</a>
+    </nav>
+
+    <button class="login-btn">Connexion</button>
+  </header>
+
+  <section class="hero">
+    <h1>
+      Trouver la paire de running
+      <span>faite pour vous</span>
+    </h1>
+
+    <div class="search-wrapper">
+      <span class="search-icon">⌕</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Recherche marque ou référence"
+      />
+    </div>
+  </section>
+
+  <main class="page">
+
+    <section class="filters-panel">
+
+      <div class="filter-group">
+        <h3>Niveau</h3>
+        <button class="filter-chip" data-filter="level" data-value="Beginner">Débutant</button>
+        <button class="filter-chip" data-filter="level" data-value="Intermediate">Intermédiaire</button>
+        <button class="filter-chip" data-filter="level" data-value="Advanced">Confirmé</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Foulée</h3>
+        <button class="filter-chip" data-filter="pronation" data-value="Neutral">Neutre</button>
+        <button class="filter-chip" data-filter="pronation" data-value="Pronator">Pronateur</button>
+        <button class="filter-chip" data-filter="pronation" data-value="Supinator">Supinateur</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Terrain</h3>
+        <button class="filter-chip" data-filter="terrain" data-value="Route">Route</button>
+        <button class="filter-chip" data-filter="terrain" data-value="Piste">Piste</button>
+        <button class="filter-chip" data-filter="terrain" data-value="Trail">Trail</button>
+        <button class="filter-chip" data-filter="terrain" data-value="Mixte">Mixte</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Occasion</h3>
+        <button class="filter-chip" data-filter="usage" data-value="Daily Training">Entraînement quotidien</button>
+        <button class="filter-chip" data-filter="usage" data-value="Long Run">Sortie longue</button>
+        <button class="filter-chip" data-filter="usage" data-value="Speed Work">Fractionné</button>
+        <button class="filter-chip" data-filter="usage" data-value="Racing">Compétition</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Amorti</h3>
+        <button class="filter-chip" data-filter="cushioning" data-value="Low">Léger</button>
+        <button class="filter-chip" data-filter="cushioning" data-value="Medium">Modéré</button>
+        <button class="filter-chip" data-filter="cushioning" data-value="High">Maximaliste</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Distance</h3>
+        <button class="filter-chip" data-filter="distance" data-value="5K_OR_LESS">&lt;5km</button>
+        <button class="filter-chip" data-filter="distance" data-value="10K">5-10km</button>
+        <button class="filter-chip" data-filter="distance" data-value="HALF">Semi-marathon</button>
+        <button class="filter-chip" data-filter="distance" data-value="MARATHON">Marathon</button>
+      </div>
+
+    </section>
+
+    <section class="results-section">
+
+      <div class="results-top">
+        <p id="resultsCount" class="results-count">0 Résultats</p>
+
+        <div class="sort-area">
+          <label for="sortSelect">Trier par</label>
+          <select id="sortSelect">
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+            <option value="name-asc">Nom A-Z</option>
+            <option value="name-desc">Nom Z-A</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="shoesGrid" class="products-grid"></div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

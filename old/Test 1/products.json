@@ -1,0 +1,38 @@
+[
+  {
+    "name": "iPhone 16",
+    "image": "https://picsum.photos/200?1",
+    "offers": [
+      { "shop": "Amazon", "price": 959 },
+      { "shop": "Fnac", "price": 979 },
+      { "shop": "Darty", "price": 989 }
+    ]
+  },
+  {
+    "name": "PlayStation 5",
+    "image": "https://picsum.photos/200?2",
+    "offers": [
+      { "shop": "Amazon", "price": 499 },
+      { "shop": "Fnac", "price": 489 },
+      { "shop": "Cdiscount", "price": 479 }
+    ]
+  },
+  {
+    "name": "Nintendo Switch 2",
+    "image": "https://picsum.photos/200?3",
+    "offers": [
+      { "shop": "Amazon", "price": 299 },
+      { "shop": "Fnac", "price": 289 },
+      { "shop": "Cdiscount", "price": 279 }
+    ]
+  },
+  {
+  "name": "ChatGPT Phone",
+  "image": "https://picsum.photos/200?4",
+  "offers": [
+    { "shop": "Amazon", "price": 799 },
+    { "shop": "Fnac", "price": 749 },
+    { "shop": "Darty", "price": 769 }
+  ]
+}
+]

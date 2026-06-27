@@ -1,0 +1,21 @@
+id,brand,model,category,terrain,usage,distance_tags,runner_level,weight_g,drop_mm,width,pronation,stability,cushioning,energy_return,carbon_plate,foot_strike,best_for,release_year
+1,Asics,Novablast 5,Daily Trainer,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate|Advanced,255,8,Standard,Neutral,Moderate,High,High,No,Heel,Versatile daily trainer,2025
+2,Asics,Gel Nimbus 27,Max Cushion,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate,305,8,Standard,Neutral,Moderate,Max,Medium,No,Heel,Maximum comfort,2025
+3,Asics,Magic Speed 5,Tempo,Route,Speed Work,10K|HALF|MARATHON,Intermediate|Advanced,240,7,Standard,Neutral,Low,Medium,High,Yes,Midfoot,Tempo sessions,2025
+4,Hoka,Clifton 10,Daily Trainer,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate|Advanced,278,8,Standard,Neutral,Moderate,High,Medium,No,Heel,Daily mileage,2025
+5,Hoka,Bondi 9,Max Cushion,Route,Recovery Runs,5K_OR_LESS|10K|HALF,Beginner|Intermediate,310,4,Wide,Neutral,Moderate,Max,Low,No,Heel,Recovery and comfort,2025
+6,Hoka,Mach 7,Tempo,Route,Speed Work,5K_OR_LESS|10K|HALF,Intermediate|Advanced,232,5,Standard,Neutral,Low,Medium,High,No,Midfoot,Fast training,2025
+7,Nike,Pegasus 42,Daily Trainer,Route,Daily Training,5K_OR_LESS|10K|HALF|MARATHON,Beginner|Intermediate|Advanced,270,10,Standard,Neutral,Moderate,Medium,Medium,No,Heel,Versatile trainer,2025
+8,Nike,Vomero 18,Max Cushion,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate,300,10,Wide,Neutral,Moderate,Max,Medium,No,Heel,Comfort and mileage,2025
+9,Nike,Alphafly 4,Race,Route,Racing,HALF|MARATHON,Advanced,210,8,Standard,Neutral,Low,High,Max,Yes,Forefoot,Elite racing,2025
+10,Adidas,Supernova Rise 2,Daily Trainer,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate,277,10,Standard,Neutral,Moderate,High,Medium,No,Heel,Comfortable trainer,2025
+11,Adidas,Boston 13,Tempo,Route,Speed Work,10K|HALF|MARATHON,Intermediate|Advanced,260,7,Standard,Neutral,Low,Medium,High,Yes,Midfoot,Marathon training,2025
+12,Adidas,Adios Pro 5,Race,Route,Racing,HALF|MARATHON,Advanced,205,6.5,Standard,Neutral,Low,High,Max,Yes,Forefoot,Marathon racing,2025
+13,Saucony,Ride 18,Daily Trainer,Route,Daily Training,5K_OR_LESS|10K|HALF|MARATHON,Beginner|Intermediate|Advanced,266,8,Standard,Neutral,Moderate,Medium,Medium,No,Heel,Daily trainer,2025
+14,Saucony,Triumph 23,Max Cushion,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate,290,10,Wide,Neutral,Moderate,Max,Medium,No,Heel,Long runs,2025
+15,Saucony,Endorphin Speed 5,Tempo,Route,Speed Work,10K|HALF|MARATHON,Intermediate|Advanced,238,8,Standard,Neutral,Low,Medium,High,Yes,Midfoot,Fast workouts,2025
+16,Brooks,Ghost 17,Daily Trainer,Route,Daily Training,5K_OR_LESS|10K|HALF|MARATHON,Beginner|Intermediate|Advanced,286,12,Wide,Neutral,High,Medium,Low,No,Heel,Reliable trainer,2025
+17,Brooks,Glycerin 23,Max Cushion,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate,300,10,Wide,Neutral,Moderate,Max,Medium,No,Heel,Premium comfort,2025
+18,New Balance,1080 v14,Max Cushion,Route,Daily Training,10K|HALF|MARATHON,Beginner|Intermediate|Advanced,262,6,Wide,Neutral,Moderate,Max,Medium,No,Heel,Comfort and versatility,2025
+19,New Balance,FuelCell Rebel v5,Tempo,Route,Speed Work,5K_OR_LESS|10K|HALF,Intermediate|Advanced,212,6,Standard,Neutral,Low,Medium,High,No,Midfoot,Lightweight speed,2025
+20,Mizuno,Wave Rider 29,Daily Trainer,Route,Daily Training,5K_OR_LESS|10K|HALF|MARATHON,Beginner|Intermediate|Advanced,280,12,Standard,Neutral,High,Medium,Medium,No,Heel,Traditional trainer,2025

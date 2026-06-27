@@ -1,0 +1,10 @@
+product_id,
+product_name,
+brand,
+price,
+sale_price,
+image_url,
+product_url,
+gender,
+sport,
+category
