@@ -1,25 +1,29 @@
 let shoes = [];
-let activeFilters = {
-  level: [],
-  pronation: [],
-  terrain: [],
-  usage: [],
-  cushioning: [],
-  distance: []
-};
+let displayedProducts = 12;
+let currentProducts = [];
 
 const shoesGrid = document.getElementById("shoesGrid");
 const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 const resultsCount = document.getElementById("resultsCount");
+const terrainFilter = document.getElementById("terrainFilter");
+const usageFilter = document.getElementById("usageFilter");
+const levelFilter = document.getElementById("levelFilter");
+const priceFilter = document.getElementById("priceFilter");
+const cushioningFilter = document.getElementById("cushioningFilter");
+const pronationFilter = document.getElementById("pronationFilter");
+const distanceFilter = document.getElementById("distanceFilter");
 const sortSelect = document.getElementById("sortSelect");
-const filterChips = document.querySelectorAll(".filter-chip");
+const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+const recommendationCard = document.getElementById("recommendationCard");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
 
 fetch("data/Classeur2.csv")
   .then((response) => response.text())
   .then((csvText) => {
     const products = parseCSV(csvText);
     shoes = normalizeProducts(products);
-    applyAllFilters();
+    applyFilters();
   });
 
 function parseCSV(csvText) {
@@ -54,7 +58,6 @@ function normalizeProducts(products) {
         image: product["Product Image URL"],
         product_url: product["Product URL"],
         price: getProductPrice(product),
-        currency: product.currency || "EUR",
         terrain: guessTerrain(product),
         usage: guessUsage(product),
         cushioning: guessCushioning(product),
@@ -97,21 +100,9 @@ function guessTerrain(product) {
 function guessUsage(product) {
   const name = product["Product Name"].toLowerCase();
 
-  if (name.includes("adios pro") || name.includes("pro evo")) {
-    return "Racing";
-  }
-
-  if (name.includes("takumi") || name.includes("adizero")) {
-    return "Speed Work";
-  }
-
-  if (
-    name.includes("ultraboost") ||
-    name.includes("adistar") ||
-    name.includes("supernova")
-  ) {
-    return "Long Run";
-  }
+  if (name.includes("adios pro") || name.includes("pro evo")) return "Racing";
+  if (name.includes("takumi") || name.includes("adizero")) return "Speed Work";
+  if (name.includes("ultraboost") || name.includes("adistar") || name.includes("supernova")) return "Long Run";
 
   return "Daily Training";
 }
@@ -119,51 +110,30 @@ function guessUsage(product) {
 function guessCushioning(product) {
   const text = `${product["Product Name"]} ${product.Description} ${product.specifications}`.toLowerCase();
 
-  if (
-    text.includes("ultraboost") ||
-    text.includes("supernova") ||
-    text.includes("adistar") ||
-    text.includes("boost")
-  ) {
+  if (text.includes("ultraboost") || text.includes("supernova") || text.includes("adistar") || text.includes("boost")) {
     return "High";
   }
 
-  if (
-    text.includes("adios") ||
-    text.includes("takumi") ||
-    text.includes("evo")
-  ) {
+  if (text.includes("adios") || text.includes("takumi") || text.includes("evo")) {
     return "Low";
   }
 
   return "Medium";
 }
 
+
 function guessDistanceTags(product) {
   const name = product["Product Name"].toLowerCase();
 
-  if (
-    name.includes("adios pro") ||
-    name.includes("pro evo") ||
-    name.includes("prime x")
-  ) {
+  if (name.includes("adios pro") || name.includes("pro evo") || name.includes("prime x")) {
     return "HALF|MARATHON";
   }
 
-  if (
-    name.includes("boston") ||
-    name.includes("supernova") ||
-    name.includes("ultraboost") ||
-    name.includes("adistar") ||
-    name.includes("galaxy")
-  ) {
+  if (name.includes("boston") || name.includes("supernova") || name.includes("ultraboost") || name.includes("adistar") || name.includes("galaxy")) {
     return "10K|HALF|MARATHON";
   }
 
-  if (
-    name.includes("takumi") ||
-    name.includes("adizero")
-  ) {
+  if (name.includes("takumi") || name.includes("adizero")) {
     return "5K_OR_LESS|10K|HALF";
   }
 
@@ -173,19 +143,11 @@ function guessDistanceTags(product) {
 function guessLevel(product) {
   const name = product["Product Name"].toLowerCase();
 
-  if (
-    name.includes("adios pro") ||
-    name.includes("takumi") ||
-    name.includes("prime x") ||
-    name.includes("pro evo")
-  ) {
+  if (name.includes("adios pro") || name.includes("takumi") || name.includes("prime x") || name.includes("pro evo")) {
     return "Advanced";
   }
 
-  if (
-    name.includes("boston") ||
-    name.includes("adizero")
-  ) {
+  if (name.includes("boston") || name.includes("adizero")) {
     return "Intermediate|Advanced";
   }
 
@@ -202,121 +164,104 @@ function guessPronation(product) {
   return "Neutral";
 }
 
-function displayShoes(products) {
-  shoesGrid.innerHTML = "";
-  resultsCount.textContent = `${products.length} Résultats`;
-
-  if (products.length === 0) {
-    shoesGrid.innerHTML = "<p>Aucun produit trouvé.</p>";
-    return;
-  }
-
-  products.forEach((shoe) => {
-    const card = document.createElement("article");
-    card.className = "product-card";
-
-    card.innerHTML = `
-      <div class="product-image-wrapper">
-        <img class="product-image" src="${shoe.image}" alt="${shoe.model}">
-      </div>
-
-      <div class="product-content">
-        <div class="product-top">
-          <div>
-            <p class="product-brand">${shoe.brand}</p>
-
-            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-              <h3 class="product-name">${shoe.model}</h3>
-              <p class="product-meta">${formatUsage(shoe.usage)} - ${formatTerrain(shoe.terrain)}</p>
-            </div>
-          </div>
-
-          <p class="product-price">${formatPrice(shoe.price)}€</p>
-        </div>
-
-        <div class="product-rating">
-          ★★★★★ <span>(${shoe.rating})</span>
-        </div>
-
-        <a class="product-link" href="${shoe.product_url}" target="_blank">
-          Voir la fiche
-        </a>
-      </div>
-    `;
-
-    shoesGrid.appendChild(card);
-  });
-}
-
-function formatPrice(price) {
-  const number = Number(price);
-
-  if (Number.isNaN(number)) {
-    return price;
-  }
-
-  return Math.round(number);
-}
-
-function formatUsage(usage) {
-  const labels = {
-    "Daily Training": "Quotidien",
-    "Long Run": "Sortie longue",
-    "Speed Work": "Fractionné",
-    "Racing": "Course"
-  };
-
-  return labels[usage] || usage;
-}
-
-function formatTerrain(terrain) {
-  return terrain.toLowerCase();
-}
-
-function applyAllFilters() {
+function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase();
 
   let filtered = shoes.filter((shoe) => {
-    const searchText = `${shoe.brand} ${shoe.model}`.toLowerCase();
-    const matchSearch = searchText.includes(searchTerm);
+    const matchSearch = `${shoe.brand} ${shoe.model}`.toLowerCase().includes(searchTerm);
 
-    const matchLevel =
-      activeFilters.level.length === 0 ||
-      activeFilters.level.some((value) => shoe.level.includes(value));
-
-    const matchPronation =
-      activeFilters.pronation.length === 0 ||
-      activeFilters.pronation.includes(shoe.pronation);
-
-    const matchTerrain =
-      activeFilters.terrain.length === 0 ||
-      activeFilters.terrain.includes(shoe.terrain);
-
-    const matchUsage =
-      activeFilters.usage.length === 0 ||
-      activeFilters.usage.includes(shoe.usage);
-
-    const matchCushioning =
-      activeFilters.cushioning.length === 0 ||
-      activeFilters.cushioning.includes(shoe.cushioning);
-
-    const matchDistance =
-      activeFilters.distance.length === 0 ||
-      activeFilters.distance.some((value) => shoe.distance_tags.includes(value));
+    const matchTerrain = !terrainFilter.value || shoe.terrain === terrainFilter.value;
+    const matchUsage = !usageFilter.value || shoe.usage === usageFilter.value;
+    const matchLevel = !levelFilter.value || shoe.level.includes(levelFilter.value);
+    const matchPrice = !priceFilter.value || Number(shoe.price) <= Number(priceFilter.value);
+    const matchCushioning = !cushioningFilter.value || shoe.cushioning === cushioningFilter.value;
+    const matchPronation = !pronationFilter.value || shoe.pronation === pronationFilter.value;
+    const matchDistance = !distanceFilter.value || shoe.distance_tags.includes(distanceFilter.value);
 
     return (
       matchSearch &&
-      matchLevel &&
-      matchPronation &&
       matchTerrain &&
       matchUsage &&
+      matchLevel &&
+      matchPrice &&
       matchCushioning &&
+      matchPronation &&
       matchDistance
     );
   });
 
-  filtered = sortProducts(filtered);
-  displayShoes(filtered);
+filtered = sortProducts(filtered);
+
+displayedProducts = 12;
+currentProducts = filtered;
+
+updateRecommendation(filtered);
+displayShoes(currentProducts);
+
+loadMoreBtn.style.display =
+  displayedProducts >= products.length ? "none" : "block";
+}
+
+function updateRecommendation(filteredProducts) {
+  const hasActiveSearch = searchInput.value.trim() !== "";
+
+  const hasActiveFilter =
+    terrainFilter.value ||
+    usageFilter.value ||
+    levelFilter.value ||
+    priceFilter.value ||
+    cushioningFilter.value ||
+    pronationFilter.value ||
+    distanceFilter.value;
+
+  if (!hasActiveSearch && !hasActiveFilter) {
+    recommendationCard.classList.add("hidden");
+    recommendationCard.innerHTML = "";
+    return;
+  }
+
+  if (filteredProducts.length === 0) {
+    recommendationCard.classList.add("hidden");
+    recommendationCard.innerHTML = "";
+    return;
+  }
+
+  const bestShoe = filteredProducts[0];
+
+  const score = Math.min(97, 82 + countActiveFilters() * 3);
+
+  recommendationCard.classList.remove("hidden");
+
+  recommendationCard.innerHTML = `
+    <img src="${bestShoe.image}" alt="${bestShoe.model}">
+
+    <div class="recommendation-content">
+      <p class="tag">● Recommandation RunGuide</p>
+      <h2>${bestShoe.model}</h2>
+      <p>
+        Le modèle le plus cohérent avec vos critères actuels.
+      </p>
+    </div>
+
+    <div class="recommendation-score">
+      <strong>${score}</strong>
+      <span>Score RunGuide</span>
+      <a href="${bestShoe.product_url}" target="_blank">Voir la fiche</a>
+    </div>
+  `;
+}
+
+function countActiveFilters() {
+  return [
+    searchInput.value.trim(),
+    terrainFilter.value,
+    usageFilter.value,
+    levelFilter.value,
+    priceFilter.value,
+    cushioningFilter.value,
+    pronationFilter.value,
+    distanceFilter.value
+  ].filter(Boolean).length;
 }
 
 function sortProducts(products) {
@@ -341,24 +286,106 @@ function sortProducts(products) {
   return sorted;
 }
 
-filterChips.forEach((chip) => {
-  chip.addEventListener("click", () => {
-    const filterName = chip.dataset.filter;
-    const filterValue = chip.dataset.value;
+function displayShoes(products) {
+  shoesGrid.innerHTML = "";
+  resultsCount.textContent = `${products.length} Résultats`;
 
-    chip.classList.toggle("active");
+  if (products.length === 0) {
+    shoesGrid.innerHTML = "<p>Aucun produit trouvé.</p>";
+    return;
+  }
 
-    if (activeFilters[filterName].includes(filterValue)) {
-      activeFilters[filterName] = activeFilters[filterName].filter(
-        (value) => value !== filterValue
-      );
-    } else {
-      activeFilters[filterName].push(filterValue);
-    }
+products.slice(0, displayedProducts).forEach((shoe) => {
+    const card = document.createElement("article");
+    card.className = "product-card";
 
-    applyAllFilters();
+    card.innerHTML = `
+      <div class="product-image-wrapper">
+        <img class="product-image" src="${shoe.image}" alt="${shoe.model}">
+      </div>
+
+      <div class="product-content">
+        <div class="product-top">
+          <div>
+            <p class="product-brand">${shoe.brand}</p>
+            <h3 class="product-name">${shoe.model}</h3>
+            <p class="product-meta">${formatUsage(shoe.usage)} - ${shoe.terrain.toLowerCase()}</p>
+          </div>
+
+          <p class="product-price">
+            <small>à partir de</small>
+            <strong>${formatPrice(shoe.price)}€</strong>
+          </p>
+        </div>
+
+        <div class="product-rating">
+          ★★★★★ <span>(${shoe.rating})</span>
+        </div>
+
+        <a class="product-link" href="${shoe.product_url}" target="_blank">
+          Voir la fiche
+        </a>
+      </div>
+    `;
+
+    shoesGrid.appendChild(card);
   });
+}
+
+function formatPrice(price) {
+  const number = Number(price);
+  return Number.isNaN(number) ? price : Math.round(number);
+}
+
+function formatUsage(usage) {
+  const labels = {
+    "Daily Training": "Quotidien",
+    "Long Run": "Sortie longue",
+    "Speed Work": "Fractionné",
+    "Racing": "Course"
+  };
+
+  return labels[usage] || usage;
+}
+
+function resetFilters() {
+  searchInput.value = "";
+  terrainFilter.value = "";
+  usageFilter.value = "";
+  levelFilter.value = "";
+  priceFilter.value = "";
+  cushioningFilter.value = "";
+  pronationFilter.value = "";
+  distanceFilter.value = "";
+  sortSelect.value = "price-asc";
+
+  applyFilters();
+}
+
+searchInput.addEventListener("input", applyFilters);
+searchBtn.addEventListener("click", applyFilters);
+terrainFilter.addEventListener("change", applyFilters);
+usageFilter.addEventListener("change", applyFilters);
+levelFilter.addEventListener("change", applyFilters);
+priceFilter.addEventListener("change", applyFilters);
+cushioningFilter.addEventListener("change", applyFilters);
+pronationFilter.addEventListener("change", applyFilters);
+distanceFilter.addEventListener("change", applyFilters);
+sortSelect.addEventListener("change", applyFilters);
+resetFiltersBtn.addEventListener("click", resetFilters);
+
+const moreFiltersBtn = document.getElementById("moreFiltersBtn");
+const advancedFilters = document.getElementById("advancedFilters");
+
+moreFiltersBtn.addEventListener("click", () => {
+  advancedFilters.classList.toggle("open");
+
+  moreFiltersBtn.textContent = advancedFilters.classList.contains("open")
+    ? "Moins de filtres"
+    : "Plus de filtres";
 });
 
-searchInput.addEventListener("input", applyAllFilters);
-sortSelect.addEventListener("change", applyAllFilters);
+loadMoreBtn.addEventListener("click", () => {
+  displayedProducts += 12;
+  displayShoes(currentProducts);
+});

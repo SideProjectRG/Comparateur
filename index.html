@@ -4,8 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RunGuide - Trouver ma paire</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <header class="navbar">
@@ -14,103 +20,257 @@
     </div>
 
     <nav class="nav-links">
-      <a href="#" class="active">Trouver ma paire</a>
-      <a href="#">Ma prochaine course</a>
-      <a href="#">Mes records</a>
+  <a href="index.html" class="active">Trouver ma paire</a>
+  <a href="courses.html">Ma prochaine course</a>
+  <a href="records.html">Mes records</a>
+  <a href="conseils.html">Guides & conseils</a>
     </nav>
 
     <button class="login-btn">Connexion</button>
   </header>
 
   <section class="hero">
-    <h1>
-      Trouver la paire de running
-      <span>faite pour vous</span>
-    </h1>
+    <div class="hero-overlay">
+      <h1>
+        Trouvez la paire de running<br>
+        <span>faite pour vous</span>
+      </h1>
 
-    <div class="search-wrapper">
-      <span class="search-icon">⌕</span>
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Recherche marque ou référence"
-      />
+      <div class="search-wrapper">
+        <img src="assets/search-bar.svg" alt="" class="search-background">
+
+        <div class="search-content">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Rechercher une marque ou un modèle"
+          >
+
+          <button id="searchBtn" aria-label="Rechercher"></button>
+        </div>
+      </div>
+
+      <p class="hero-subtitle">Comparez, Choisissez, Courez !</p>
     </div>
   </section>
 
   <main class="page">
 
-    <section class="filters-panel">
-
-      <div class="filter-group">
-        <h3>Niveau</h3>
-        <button class="filter-chip" data-filter="level" data-value="Beginner">Débutant</button>
-        <button class="filter-chip" data-filter="level" data-value="Intermediate">Intermédiaire</button>
-        <button class="filter-chip" data-filter="level" data-value="Advanced">Confirmé</button>
+    <section class="filters-card">
+      <div class="filters-header">
+        <h2>Affinez votre recherche</h2>
+        <button id="resetFiltersBtn">Réinitialiser</button>
       </div>
 
-      <div class="filter-group">
-        <h3>Foulée</h3>
-        <button class="filter-chip" data-filter="pronation" data-value="Neutral">Neutre</button>
-        <button class="filter-chip" data-filter="pronation" data-value="Pronator">Pronateur</button>
-        <button class="filter-chip" data-filter="pronation" data-value="Supinator">Supinateur</button>
-      </div>
+      <div class="filters-grid main-filters">
 
-      <div class="filter-group">
-        <h3>Terrain</h3>
-        <button class="filter-chip" data-filter="terrain" data-value="Route">Route</button>
-        <button class="filter-chip" data-filter="terrain" data-value="Piste">Piste</button>
-        <button class="filter-chip" data-filter="terrain" data-value="Trail">Trail</button>
-        <button class="filter-chip" data-filter="terrain" data-value="Mixte">Mixte</button>
-      </div>
-
-      <div class="filter-group">
-        <h3>Occasion</h3>
-        <button class="filter-chip" data-filter="usage" data-value="Daily Training">Entraînement quotidien</button>
-        <button class="filter-chip" data-filter="usage" data-value="Long Run">Sortie longue</button>
-        <button class="filter-chip" data-filter="usage" data-value="Speed Work">Fractionné</button>
-        <button class="filter-chip" data-filter="usage" data-value="Racing">Compétition</button>
-      </div>
-
-      <div class="filter-group">
-        <h3>Amorti</h3>
-        <button class="filter-chip" data-filter="cushioning" data-value="Low">Léger</button>
-        <button class="filter-chip" data-filter="cushioning" data-value="Medium">Modéré</button>
-        <button class="filter-chip" data-filter="cushioning" data-value="High">Maximaliste</button>
-      </div>
-
-      <div class="filter-group">
-        <h3>Distance</h3>
-        <button class="filter-chip" data-filter="distance" data-value="5K_OR_LESS">&lt;5km</button>
-        <button class="filter-chip" data-filter="distance" data-value="10K">5-10km</button>
-        <button class="filter-chip" data-filter="distance" data-value="HALF">Semi-marathon</button>
-        <button class="filter-chip" data-filter="distance" data-value="MARATHON">Marathon</button>
-      </div>
-
-    </section>
-
-    <section class="results-section">
-
-      <div class="results-top">
-        <p id="resultsCount" class="results-count">0 Résultats</p>
-
-        <div class="sort-area">
-          <label for="sortSelect">Trier par</label>
-          <select id="sortSelect">
-            <option value="price-asc">Prix croissant</option>
-            <option value="price-desc">Prix décroissant</option>
-            <option value="name-asc">Nom A-Z</option>
-            <option value="name-desc">Nom Z-A</option>
+        <label class="filter-box">
+          <span>Profil</span>
+          <select id="levelFilter">
+            <option value="">Tous</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+            <option value="Enfant">Enfant</option>
           </select>
-        </div>
+        </label>
+
+        <label class="filter-box">
+          <span>Occasion</span>
+          <select id="usageFilter">
+            <option value="">Toutes</option>
+            <option value="Daily Training">Entraînement quotidien</option>
+            <option value="Speed Work">Fractionné</option>
+            <option value="Long Run">Sortie longue</option>
+            <option value="Racing">Compétition</option>
+            <option value="Recovery">Récupération</option>
+            <option value="Walking">Marche</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Terrain</span>
+          <select id="terrainFilter">
+            <option value="">Tous</option>
+            <option value="Route">Route</option>
+            <option value="Trail">Trail</option>
+            <option value="Piste">Piste</option>
+            <option value="Mixte">Mixte</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Distance</span>
+          <select id="distanceFilter">
+            <option value="">Toutes</option>
+            <option value="5K_OR_LESS">&lt;5 km</option>
+            <option value="10K">5-10 km</option>
+            <option value="HALF">Semi-marathon</option>
+            <option value="MARATHON">Marathon</option>
+            <option value="ULTRA">Ultra</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Amorti</span>
+          <select id="cushioningFilter">
+            <option value="">Tous</option>
+            <option value="Low">Léger</option>
+            <option value="Medium">Modéré</option>
+            <option value="High">Maximaliste</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Budget</span>
+          <select id="priceFilter">
+            <option value="">Tous</option>
+            <option value="100">&lt;100€</option>
+            <option value="150">&lt;150€</option>
+            <option value="200">&lt;200€</option>
+            <option value="200_PLUS">&gt;200€</option>
+          </select>
+        </label>
+
+        <button class="more-filters-btn" id="moreFiltersBtn" type="button">
+          Plus de filtres
+        </button>
+
       </div>
 
-      <div id="shoesGrid" class="products-grid"></div>
+      <div class="filters-grid advanced-filters" id="advancedFilters">
+
+        <label class="filter-box">
+          <span>Imperméable</span>
+          <select id="waterproofFilter">
+            <option value="">Tous</option>
+            <option value="Yes">Oui</option>
+            <option value="No">Non</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Marque</span>
+          <select id="brandFilter">
+            <option value="">Toutes</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Couleur</span>
+          <select id="colorFilter">
+            <option value="">Toutes</option>
+            <option value="Noir">Noir</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Rouge">Rouge</option>
+            <option value="Vert">Vert</option>
+            <option value="Jaune">Jaune</option>
+            <option value="Orange">Orange</option>
+            <option value="Rose">Rose</option>
+            <option value="Violet">Violet</option>
+            <option value="Gris">Gris</option>
+            <option value="Multicolore">Multicolore</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Foulée</span>
+          <select id="pronationFilter">
+            <option value="">Toutes</option>
+            <option value="Neutral">Neutre</option>
+            <option value="Pronator">Pronateur</option>
+            <option value="Supinator">Supinateur</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Attaque</span>
+          <select id="strikeFilter">
+            <option value="">Toutes</option>
+            <option value="Heel">Talon</option>
+            <option value="Midfoot">Médio-pied</option>
+            <option value="Forefoot">Avant-pied</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Largeur du pied</span>
+          <select id="widthFilter">
+            <option value="">Toutes</option>
+            <option value="Narrow">Étroit</option>
+            <option value="Standard">Standard</option>
+            <option value="Wide">Large</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Année de sortie</span>
+          <select id="yearFilter">
+            <option value="">Toutes</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022_BEFORE">2022 et avant</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
+          <span>Pointure</span>
+          <select id="sizeFilter">
+            <option value="">Toutes</option>
+          </select>
+        </label>
+
+      </div>
+
+      <a href="coach.html" class="help-btn">
+      Je ne sais pas quoi choisir
+      </a>
 
     </section>
+
+<section id="recommendationCard" class="recommendation-card hidden"></section>
+
+
+    <section class="results-header">
+      <p id="resultsCount">0 Résultats</p>
+
+      <div class="sort-area">
+        <label for="sortSelect">Trier par</label>
+        <select id="sortSelect">
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
+          <option value="name-asc">Nom A-Z</option>
+          <option value="name-desc">Nom Z-A</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="shoesGrid" class="products-grid"></section>
+
+<div class="load-more-container">
+  <button id="loadMoreBtn" class="load-more-btn">
+    Voir plus
+  </button>
+</div>
 
   </main>
 
+  <footer class="footer">
+  <div class="footer-content">
+    <p>© 2026 RunGuide</p>
+
+    <nav class="footer-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="affiliation.html">Affiliation</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</footer>
+
   <script src="script.js"></script>
+
 </body>
 </html>
