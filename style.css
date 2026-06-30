@@ -9,7 +9,14 @@
   --text: #111827;
   --muted: #64748b;
   --white: #f7f7f7;
+  --surface: #ffffff;
+  --surface-soft: #fff7ec;
+  --surface-orange: #fff6eb;
   --border: #e5e7eb;
+  --border-soft: #ececec;
+  --text-soft: #666666;
+  --text-lighter: #888888;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.06);
 }
 
 body {
@@ -28,7 +35,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 48px;
-  border-bottom: 1px solid #ececec;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .logo {
@@ -115,7 +122,7 @@ body {
   max-width: 100%;
   height: 58px;
   margin-top: 34px;
-  background: white;
+  background: var(--surface);
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -141,7 +148,7 @@ body {
   padding: 0 24px;
   border: 1px solid var(--orange);
   border-radius: 999px;
-  background: white;
+  background: var(--surface);
   color: var(--orange);
   font-family: inherit;
   font-size: 14px;
@@ -165,13 +172,13 @@ body {
 /* FILTERS */
 
 .filters-card {
-  background: white;
+  background: var(--surface);
   border-radius: 28px;
   padding: 20px 28px 24px;
   margin-top: -24px;
   position: relative;
   z-index: 2;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-soft);
 }
 
 .filters-header {
@@ -229,23 +236,21 @@ body {
   cursor: pointer;
 }
 
-.filter-box:has(select:not([value=""])) {
-  border-color: var(--orange);
-}
 
 .help-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;
 
-  margin: 18px auto 0;
+  margin: 20px auto 0;
 
   padding: 10px 22px;
 
   border: 1px solid var(--orange);
   border-radius: 999px;
 
-  background: #FFF6EB;
+  background: var(--surface-orange);
   color: var(--orange);
 
   text-decoration: none;
@@ -262,11 +267,6 @@ body {
   color: white;
 }
 
-.help-btn {
-  display: flex;
-  width: fit-content;
-  margin: 20px auto 0;
-}
 
 .hidden {
   display: none;
@@ -274,7 +274,7 @@ body {
 
 .recommendation-card {
   margin-top: 28px;
-  background: #fff7ec;
+  background: var(--surface-soft);
   border-radius: 28px;
   padding: 28px;
   display: grid;
@@ -367,7 +367,7 @@ body {
   border-radius: 999px;
   padding: 8px 16px;
   font-family: inherit;
-  background: white;
+  background: var(--surface);
 }
 
 /* PRODUCTS */
@@ -379,7 +379,7 @@ body {
 }
 
 .product-card {
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
@@ -481,7 +481,9 @@ body {
     gap: 24px;
   }
 
-  .filters-grid {
+  .filters-grid,
+  .main-filters,
+  .advanced-filters {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -527,7 +529,9 @@ body {
     padding: 0 20px 40px;
   }
 
-  .filters-grid {
+  .filters-grid,
+  .main-filters,
+  .advanced-filters {
     grid-template-columns: 1fr;
   }
 
@@ -567,9 +571,6 @@ body {
   cursor: pointer;
 }
 
-.filter-box {
-  border: 1px solid #E5E5E5 !important;
-}
 
 .coach-page {
   min-height: calc(100vh - 68px);
@@ -581,7 +582,7 @@ body {
 
 .coach-card {
   max-width: 640px;
-  background: white;
+  background: var(--surface);
   border-radius: 28px;
   padding: 48px;
   text-align: center;
@@ -615,14 +616,11 @@ body {
   font-weight: 700;
 }
 
-.recommendation-card.hidden {
-  display: none !important;
-}
 
 .footer {
   margin-top: 60px;
-  border-top: 1px solid #E5E5E5;
-  background: white;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .footer-content {
@@ -637,7 +635,7 @@ body {
 
 .footer p {
   margin: 0;
-  color: #888;
+  color: var(--text-lighter);
   font-size: 14px;
 }
 
@@ -648,7 +646,7 @@ body {
 
 .footer-links a {
   text-decoration: none;
-  color: #666;
+  color: var(--text-soft);
   font-size: 14px;
 }
 
@@ -666,7 +664,7 @@ body {
   padding: 12px 28px;
   border: 1px solid var(--orange);
   border-radius: 999px;
-  background: white;
+  background: var(--surface);
   color: var(--orange);
   font-family: inherit;
   font-size: 15px;
@@ -680,7 +678,7 @@ body {
 }
 
 .legal-page{
-    background:#F7F7F7;
+    background: var(--white);
     min-height:100vh;
     padding-bottom:80px;
 }
@@ -737,7 +735,7 @@ body {
 .legal-card p,
 .legal-card li{
 
-    color:#555;
+    color: var(--text-soft);
 
     line-height:1.8;
 
@@ -747,8 +745,35 @@ body {
 
     border:none;
 
-    border-top:1px solid #ECECEC;
+    border-top: 1px solid var(--border-soft);
 
     margin:35px 0;
 
+}
+
+@media (max-width: 800px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 22px;
+  }
+
+  .recommendation-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .recommendation-score {
+    text-align: center;
+  }
+}
+
+.recommendation-card.hidden {
+  display: none;
 }

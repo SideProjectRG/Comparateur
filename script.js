@@ -6,6 +6,7 @@ const shoesGrid = document.getElementById("shoesGrid");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const resultsCount = document.getElementById("resultsCount");
+
 const terrainFilter = document.getElementById("terrainFilter");
 const usageFilter = document.getElementById("usageFilter");
 const levelFilter = document.getElementById("levelFilter");
@@ -13,10 +14,14 @@ const priceFilter = document.getElementById("priceFilter");
 const cushioningFilter = document.getElementById("cushioningFilter");
 const pronationFilter = document.getElementById("pronationFilter");
 const distanceFilter = document.getElementById("distanceFilter");
+
 const sortSelect = document.getElementById("sortSelect");
 const resetFiltersBtn = document.getElementById("resetFiltersBtn");
 const recommendationCard = document.getElementById("recommendationCard");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+const moreFiltersBtn = document.getElementById("moreFiltersBtn");
+const advancedFilters = document.getElementById("advancedFilters");
 
 fetch("data/Classeur2.csv")
   .then((response) => response.text())
@@ -24,6 +29,10 @@ fetch("data/Classeur2.csv")
     const products = parseCSV(csvText);
     shoes = normalizeProducts(products);
     applyFilters();
+  })
+  .catch((error) => {
+    console.error("Erreur de chargement du CSV :", error);
+    shoesGrid.innerHTML = "<p>Impossible de charger les produits.</p>";
   });
 
 function parseCSV(csvText) {
@@ -35,7 +44,7 @@ function parseCSV(csvText) {
     const product = {};
 
     headers.forEach((header, index) => {
-      product[header.trim()] = values[index]?.trim();
+      product[header.trim()] = values[index]?.trim() || "";
     });
 
     return product;
@@ -62,7 +71,7 @@ function normalizeProducts(products) {
         usage: guessUsage(product),
         cushioning: guessCushioning(product),
         distance_tags: guessDistanceTags(product),
-        level: guessLevel(product),
+        level: guessProfile(product),
         pronation: guessPronation(product),
         rating: product.rating || "5,0"
       });
@@ -88,8 +97,12 @@ function getProductPrice(product) {
   return price.replace(",", ".");
 }
 
+function getProductText(product) {
+  return `${product["Product Name"]} ${product.Description} ${product.specifications}`.toLowerCase();
+}
+
 function guessTerrain(product) {
-  const text = `${product["Product Name"]} ${product.Description} ${product.specifications}`.toLowerCase();
+  const text = getProductText(product);
 
   if (text.includes("trail")) return "Trail";
   if (text.includes("track") || text.includes("piste")) return "Piste";
@@ -108,28 +121,46 @@ function guessUsage(product) {
 }
 
 function guessCushioning(product) {
-  const text = `${product["Product Name"]} ${product.Description} ${product.specifications}`.toLowerCase();
+  const text = getProductText(product);
 
-  if (text.includes("ultraboost") || text.includes("supernova") || text.includes("adistar") || text.includes("boost")) {
+  if (
+    text.includes("ultraboost") ||
+    text.includes("supernova") ||
+    text.includes("adistar") ||
+    text.includes("boost")
+  ) {
     return "High";
   }
 
-  if (text.includes("adios") || text.includes("takumi") || text.includes("evo")) {
+  if (
+    text.includes("adios") ||
+    text.includes("takumi") ||
+    text.includes("evo")
+  ) {
     return "Low";
   }
 
   return "Medium";
 }
 
-
 function guessDistanceTags(product) {
   const name = product["Product Name"].toLowerCase();
 
-  if (name.includes("adios pro") || name.includes("pro evo") || name.includes("prime x")) {
+  if (
+    name.includes("adios pro") ||
+    name.includes("pro evo") ||
+    name.includes("prime x")
+  ) {
     return "HALF|MARATHON";
   }
 
-  if (name.includes("boston") || name.includes("supernova") || name.includes("ultraboost") || name.includes("adistar") || name.includes("galaxy")) {
+  if (
+    name.includes("boston") ||
+    name.includes("supernova") ||
+    name.includes("ultraboost") ||
+    name.includes("adistar") ||
+    name.includes("galaxy")
+  ) {
     return "10K|HALF|MARATHON";
   }
 
@@ -140,22 +171,38 @@ function guessDistanceTags(product) {
   return "5K_OR_LESS|10K";
 }
 
-function guessLevel(product) {
-  const name = product["Product Name"].toLowerCase();
+function guessProfile(product) {
+  const text = getProductText(product);
 
-  if (name.includes("adios pro") || name.includes("takumi") || name.includes("prime x") || name.includes("pro evo")) {
-    return "Advanced";
+  if (
+    text.includes("enfant") ||
+    text.includes("kids") ||
+    text.includes("junior")
+  ) {
+    return "Enfant";
   }
 
-  if (name.includes("boston") || name.includes("adizero")) {
-    return "Intermediate|Advanced";
+  if (
+    text.includes("femme") ||
+    text.includes("women") ||
+    text.includes("woman")
+  ) {
+    return "Femme";
   }
 
-  return "Beginner|Intermediate";
+  if (
+    text.includes("homme") ||
+    text.includes("men") ||
+    text.includes("man")
+  ) {
+    return "Homme";
+  }
+
+  return "Homme|Femme";
 }
 
 function guessPronation(product) {
-  const text = `${product["Product Name"]} ${product.Description} ${product.specifications}`.toLowerCase();
+  const text = getProductText(product);
 
   if (text.includes("stability") || text.includes("support")) {
     return "Pronator";
@@ -168,15 +215,24 @@ function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase();
 
   let filtered = shoes.filter((shoe) => {
-    const matchSearch = `${shoe.brand} ${shoe.model}`.toLowerCase().includes(searchTerm);
+    const matchSearch = `${shoe.brand} ${shoe.model}`
+      .toLowerCase()
+      .includes(searchTerm);
 
     const matchTerrain = !terrainFilter.value || shoe.terrain === terrainFilter.value;
     const matchUsage = !usageFilter.value || shoe.usage === usageFilter.value;
     const matchLevel = !levelFilter.value || shoe.level.includes(levelFilter.value);
-    const matchPrice = !priceFilter.value || Number(shoe.price) <= Number(priceFilter.value);
     const matchCushioning = !cushioningFilter.value || shoe.cushioning === cushioningFilter.value;
     const matchPronation = !pronationFilter.value || shoe.pronation === pronationFilter.value;
     const matchDistance = !distanceFilter.value || shoe.distance_tags.includes(distanceFilter.value);
+
+    let matchPrice = true;
+
+    if (priceFilter.value === "200_PLUS") {
+      matchPrice = Number(shoe.price) > 200;
+    } else if (priceFilter.value !== "") {
+      matchPrice = Number(shoe.price) <= Number(priceFilter.value);
+    }
 
     return (
       matchSearch &&
@@ -190,16 +246,14 @@ function applyFilters() {
     );
   });
 
-filtered = sortProducts(filtered);
+  filtered = sortProducts(filtered);
 
-displayedProducts = 12;
-currentProducts = filtered;
+  displayedProducts = 12;
+  currentProducts = filtered;
 
-updateRecommendation(filtered);
-displayShoes(currentProducts);
-
-loadMoreBtn.style.display =
-  displayedProducts >= products.length ? "none" : "block";
+  updateRecommendation(filtered);
+  displayShoes(currentProducts);
+  updateLoadMoreButton();
 }
 
 function updateRecommendation(filteredProducts) {
@@ -227,7 +281,6 @@ function updateRecommendation(filteredProducts) {
   }
 
   const bestShoe = filteredProducts[0];
-
   const score = Math.min(97, 82 + countActiveFilters() * 3);
 
   recommendationCard.classList.remove("hidden");
@@ -238,9 +291,7 @@ function updateRecommendation(filteredProducts) {
     <div class="recommendation-content">
       <p class="tag">● Recommandation RunGuide</p>
       <h2>${bestShoe.model}</h2>
-      <p>
-        Le modèle le plus cohérent avec vos critères actuels.
-      </p>
+      <p>Le modèle le plus cohérent avec vos critères actuels.</p>
     </div>
 
     <div class="recommendation-score">
@@ -295,7 +346,7 @@ function displayShoes(products) {
     return;
   }
 
-products.slice(0, displayedProducts).forEach((shoe) => {
+  products.slice(0, displayedProducts).forEach((shoe) => {
     const card = document.createElement("article");
     card.className = "product-card";
 
@@ -330,6 +381,13 @@ products.slice(0, displayedProducts).forEach((shoe) => {
 
     shoesGrid.appendChild(card);
   });
+}
+
+function updateLoadMoreButton() {
+  if (!loadMoreBtn) return;
+
+  loadMoreBtn.style.display =
+    displayedProducts >= currentProducts.length ? "none" : "block";
 }
 
 function formatPrice(price) {
@@ -374,9 +432,6 @@ distanceFilter.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applyFilters);
 resetFiltersBtn.addEventListener("click", resetFilters);
 
-const moreFiltersBtn = document.getElementById("moreFiltersBtn");
-const advancedFilters = document.getElementById("advancedFilters");
-
 moreFiltersBtn.addEventListener("click", () => {
   advancedFilters.classList.toggle("open");
 
@@ -388,4 +443,5 @@ moreFiltersBtn.addEventListener("click", () => {
 loadMoreBtn.addEventListener("click", () => {
   displayedProducts += 12;
   displayShoes(currentProducts);
+  updateLoadMoreButton();
 });
