@@ -777,3 +777,228 @@ body {
 .recommendation-card.hidden {
   display: none;
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    height: 56px;
+    padding: 0 14px;
+    flex-wrap: nowrap;
+  }
+
+  .logo img {
+    height: 34px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .login-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  .hero {
+    background-position: center right;
+  }
+
+  .hero-overlay {
+    padding: 26px 24px 44px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    line-height: 1.18;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    height: 48px;
+    margin-top: 24px;
+    padding: 0 20px;
+  }
+
+  .search-wrapper input {
+    font-size: 14px;
+  }
+
+  .search-wrapper button {
+    display: none;
+  }
+
+  .hero-subtitle {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+
+  .page {
+    padding: 0 20px 40px;
+  }
+
+  .filters-card {
+    margin-top: -22px;
+    border-radius: 18px;
+    padding: 14px 18px 18px;
+  }
+
+  .filters-header {
+    margin-bottom: 14px;
+  }
+
+  .filters-header h2 {
+    font-size: 14px;
+  }
+
+  .filters-header button {
+    font-size: 13px;
+  }
+
+  .main-filters {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .filter-box {
+    min-height: 56px;
+    padding: 9px 12px;
+  }
+
+  .filter-box span {
+    font-size: 11px;
+  }
+
+  .filter-box select {
+    font-size: 13px;
+  }
+
+  .more-filters-btn {
+    min-height: 56px;
+  }
+
+  .advanced-filters.open {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .help-btn {
+    margin-top: 14px;
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+
+  .recommendation-card {
+    margin-top: 20px;
+    border-radius: 18px;
+    padding: 18px;
+    display: block;
+  }
+
+  .recommendation-card img {
+    display: none;
+  }
+
+  .recommendation-content .tag {
+    font-size: 12px;
+    margin: 0 0 8px;
+  }
+
+  .recommendation-content h2 {
+    font-size: 18px;
+    margin: 0 0 6px;
+  }
+
+  .recommendation-content p {
+    font-size: 13px;
+  }
+
+  .recommendation-score {
+    text-align: left;
+    margin-top: 14px;
+  }
+
+  .recommendation-score strong {
+    font-size: 24px;
+  }
+
+  .recommendation-score a {
+    margin-top: 10px;
+  }
+
+  .results-header {
+    margin: 22px 0 18px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .results-header p {
+    font-size: 15px;
+  }
+
+  .sort-area {
+    gap: 8px;
+  }
+
+  .sort-area label {
+    font-size: 13px;
+  }
+
+  .sort-area select {
+    max-width: 150px;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .product-card {
+    border-radius: 18px;
+  }
+
+  .product-image-wrapper {
+    height: 220px;
+  }
+
+  .product-content {
+    padding: 18px;
+  }
+
+  .product-name {
+    font-size: 18px;
+  }
+
+  .product-meta {
+    font-size: 13px;
+  }
+
+  .product-rating {
+    font-size: 20px;
+  }
+
+  .product-link {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .footer-content {
+    padding: 24px 20px;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.more-filters-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
