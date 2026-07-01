@@ -1,0 +1,26 @@
+RunGuide
+
+RunGuide est un comparateur français de chaussures de running.
+
+Le site aide les coureurs à choisir leur paire selon :
+- leur profil
+- leur foulée
+- leur terrain
+- leur distance
+- leur budget
+- leur niveau
+
+Le site propose également :
+- des guides d'achat
+- des recommandations personnalisées
+- des comparatifs
+- des liens vers les revendeurs officiels
+
+Site :
+https://runguide.fr
+
+Contact :
+https://runguide.fr/contact.html
+
+Mentions légales :
+https://runguide.fr/mentions-legales.html
