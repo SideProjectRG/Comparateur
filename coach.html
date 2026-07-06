@@ -5,93 +5,183 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coach RunGuide</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css" />
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZE5SKBS0Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4ZE5SKBS0Y');
-</script>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZE5SKBS0Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4ZE5SKBS0Y');
-</script>
-
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xfm1e1tzz1");
-</script>
-
-<link rel="canonical" href="https://runguide.fr/coach.html">
-
 </head>
-
 <body>
-
   <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo runguide fond blanc.svg" alt="RunGuide">
-    </div>
-
+    <div class="logo"><img src="assets/logo runguide fond blanc.svg" alt="RunGuide"></div>
     <nav class="nav-links">
-  <a href="index.html" class="active">Trouver ma paire</a>
-  <a href="courses.html">Ma prochaine course</a>
-  <a href="records.html">Mes records</a>
-  <a href="conseils.html">Guides & conseils</a>
+      <a href="index.html">Trouver ma paire</a>
+      <a href="courses.html">Ma prochaine course</a>
+      <a href="records.html">Mes records</a>
+      <a href="conseils.html">Guides & conseils</a>
     </nav>
-
     <button class="login-btn">Connexion</button>
   </header>
 
-  <main class="coach-page">
-    <section class="coach-card">
-      <h1>🏃 Coach RunGuide</h1>
+  <main class="coach-page coach-experience">
+    <section class="coach-shell" aria-labelledby="coachTitle">
+      <div class="coach-intro">
+        <p class="coach-kicker">Coach RunGuide</p>
+        <h1 id="coachTitle">Trouvez une paire adaptée à vos besoins !</h1>
+        <p>Répondez à quelques questions simples. Le Coach proposera une sélection et affichera les produits les plus pertinents.</p>
+      </div>
+      <div class="coach-progress" aria-hidden="true"><span id="coachProgressBar"></span></div>
 
-      <p>
-        Notre conseiller personnalisé est en cours de développement.
-      </p>
+      <form id="coachForm" class="coach-form">
+        <section class="coach-step active"><span class="coach-step-count">1/11</span><h2>Où cours-tu principalement ?</h2><div class="coach-options"><label><input type="radio" name="terrain" value="Route" required><span>Sur route principalement</span></label><label><input type="radio" name="terrain" value="Trail"><span>Sur chemins et sentiers sauvages</span></label><label><input type="radio" name="terrain" value="Mixte"><span>Un peu des deux</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">2/11</span><h2>Quelle distance fais-tu le plus souvent ?</h2><div class="coach-options"><label><input type="radio" name="distance" value="5K_OR_LESS" required><span>Moins de 5 km</span></label><label><input type="radio" name="distance" value="10K"><span>5 à 10 km</span></label><label><input type="radio" name="distance" value="HALF"><span>Semi-marathon</span></label><label><input type="radio" name="distance" value="MARATHON"><span>Marathon</span></label><label><input type="radio" name="distance" value="ULTRA"><span>Très longues distances</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">3/11</span><h2>Pourquoi cherches-tu une paire ?</h2><div class="coach-options"><label><input type="radio" name="goal" value="start" required><span>Débuter tranquillement</span></label><label><input type="radio" name="goal" value="regular"><span>Courir régulièrement</span></label><label><input type="radio" name="goal" value="race"><span>Préparer une course</span></label><label><input type="radio" name="goal" value="record"><span>Aller plus vite</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">4/11</span><h2>Tu cours à quelle fréquence ?</h2><div class="coach-options"><label><input type="radio" name="frequency" value="one" required><span>1 fois par semaine</span></label><label><input type="radio" name="frequency" value="twoThree"><span>2 à 3 fois par semaine</span></label><label><input type="radio" name="frequency" value="fourPlus"><span>4 fois ou plus</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">5/11</span><h2>Tu te situes plutôt où ?</h2><div class="coach-options"><label><input type="radio" name="runnerLevel" value="beginner" required><span>Je débute</span></label><label><input type="radio" name="runnerLevel" value="intermediate"><span>Je cours déjà un peu</span></label><label><input type="radio" name="runnerLevel" value="advanced"><span>Je cours souvent</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">6/11</span><h2>La paire est pour qui ?</h2><div class="coach-options"><label><input type="radio" name="profile" value="Homme" required><span>Homme</span></label><label><input type="radio" name="profile" value="Femme"><span>Femme</span></label><label><input type="radio" name="profile" value="Unisexe"><span>Unisexe</span></label><label><input type="radio" name="profile" value="Enfant"><span>Enfant</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">7/11</span><h2>Tu veux plutôt quelle sensation ?</h2><div class="coach-options"><label><input type="radio" name="comfort" value="protective" required><span>Très confortable et protectrice</span></label><label><input type="radio" name="comfort" value="balanced"><span>Équilibrée</span></label><label><input type="radio" name="comfort" value="light"><span>Légère et dynamique</span></label><label><input type="radio" name="comfort" value="unknown"><span>Je ne sais pas</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">8/11</span><h2>Quand tu cours, tu poses plutôt le pied...</h2><div class="coach-options"><label><input type="radio" name="footStrike" value="unknown" required><span>Je ne sais pas</span></label><label><input type="radio" name="footStrike" value="Heel"><span>Plutôt talon</span></label><label><input type="radio" name="footStrike" value="Midfoot"><span>Milieu du pied</span></label><label><input type="radio" name="footStrike" value="Forefoot"><span>Avant du pied</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">9/11</span><h2>Tu cherches plus de maintien ?</h2><div class="coach-options"><label><input type="radio" name="stability" value="unknown" required><span>Je ne sais pas</span></label><label><input type="radio" name="stability" value="no"><span>Non, pas spécialement</span></label><label><input type="radio" name="stability" value="yes"><span>Oui, je veux une chaussure stable</span></label></div><p class="coach-note">Le Coach ne pose pas de diagnostic. Cette réponse sert seulement à éviter des modèles trop instables si tu veux du maintien.</p></section>
+        <section class="coach-step"><span class="coach-step-count">10/11</span><h2>Ton gabarit est plutôt...</h2><div class="coach-options"><label><input type="radio" name="bodyBuild" value="light" required><span>Léger</span></label><label><input type="radio" name="bodyBuild" value="standard"><span>Standard</span></label><label><input type="radio" name="bodyBuild" value="strong"><span>Puissant</span></label><label><input type="radio" name="bodyBuild" value="unknown"><span>Je préfère ne pas répondre</span></label></div></section>
+        <section class="coach-step"><span class="coach-step-count">11/11</span><h2>Quel budget veux-tu viser ?</h2><div class="coach-budget"><input id="budgetRange" type="range" name="budget" min="80" max="240" step="10" value="150"><strong><span id="budgetValue">150</span> €</strong></div><p class="coach-note">Le Coach utilisera ce montant comme plafond quand c'est pertinent.</p></section>
 
-      <p>
-        Il vous aidera bientôt à trouver la paire idéale en moins de 2 minutes grâce à quelques questions simples.
-      </p>
+        <div class="coach-actions"><button type="button" id="coachBack" class="coach-secondary" disabled>Retour</button><button type="button" id="coachNext" class="coach-primary">Continuer</button><button type="submit" id="coachSubmit" class="coach-primary hidden">Voir ma sélection</button></div>
+      </form>
+    </section>
 
-      <strong>🚧 Disponible prochainement.</strong>
-
-      <a href="index.html">Retour à l’accueil</a>
+    <section id="coachResults" class="coach-results hidden" aria-live="polite">
+      <div class="coach-results-head"><div><p class="coach-kicker">Sélection RunGuide</p><h2 id="coachResultsTitle">Nous avons trouvà des chaussures adaptées.</h2><p id="coachResultsSubtitle"></p></div><a id="coachOpenFilters" class="coach-filter-link" href="index.html">Affiner avec les filtres</a></div>
+      <div id="coachAdjustments" class="coach-adjustments"></div>
+      <div id="coachReasons" class="coach-reasons"></div>
+      <div id="coachProducts" class="products-grid"></div>
+      <button id="coachMore" class="load-more-btn hidden" type="button">Voir plus</button>
     </section>
   </main>
 
-  <footer class="footer">
-  <div class="footer-content">
-    <p>© 2026 RunGuide</p>
+  <footer class="footer"><div class="footer-content"><p>© 2026 RunGuide</p><nav class="footer-links"><a href="mentions-legales.html">Mentions légales</a><a href="politique-confidentialite.html">Politique de confidentialité</a><a href="affiliation.html">Affiliation</a><a href="contact.html">Contact</a></nav></div></footer>
 
-    <nav class="footer-links">
-      <a href="mentions-legales.html">Mentions légales</a>
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      <a href="affiliation.html">Affiliation</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</footer>
+  <script>
+    const steps = [...document.querySelectorAll(".coach-step")];
+    const backBtn = document.getElementById("coachBack");
+    const nextBtn = document.getElementById("coachNext");
+    const submitBtn = document.getElementById("coachSubmit");
+    const form = document.getElementById("coachForm");
+    const progressBar = document.getElementById("coachProgressBar");
+    const budgetRange = document.getElementById("budgetRange");
+    const budgetValue = document.getElementById("budgetValue");
+    const resultsSection = document.getElementById("coachResults");
+    const resultsTitle = document.getElementById("coachResultsTitle");
+    const resultsSubtitle = document.getElementById("coachResultsSubtitle");
+    const adjustmentsBox = document.getElementById("coachAdjustments");
+    const reasonsBox = document.getElementById("coachReasons");
+    const productsBox = document.getElementById("coachProducts");
+    const moreBtn = document.getElementById("coachMore");
+    const openFiltersLink = document.getElementById("coachOpenFilters");
+    let currentStep = 0;
+    let allShoes = [];
+    let coachMatches = [];
+    let coachDisplayed = 12;
+    let activePlan = null;
 
+    fetch("data/products.json").then((response) => response.json()).then((products) => { allShoes = normalizeProducts(products); }).catch(() => { allShoes = []; });
+
+    function showStep(index) {
+      steps.forEach((step, stepIndex) => step.classList.toggle("active", stepIndex === index));
+      backBtn.disabled = index === 0;
+      nextBtn.classList.toggle("hidden", index === steps.length - 1);
+      submitBtn.classList.toggle("hidden", index !== steps.length - 1);
+      progressBar.style.width = `${((index + 1) / steps.length) * 100}%`;
+    }
+
+    function currentStepIsValid() {
+      const radios = [...steps[currentStep].querySelectorAll('input[type="radio"]')];
+      if (radios.length === 0) return true;
+      return radios.some((radio) => radio.checked);
+    }
+
+    function getAnswers() { return Object.fromEntries(new FormData(form).entries()); }
+    function getBudgetFilter(budget) { const value = Number(budget); if (value <= 100) return "100"; if (value <= 150) return "150"; if (value <= 200) return "200"; return ""; }
+
+    function buildCoachPlan(answers) {
+      const filters = { terrain: answers.terrain, distance: answers.distance, level: answers.profile };
+      const reasons = [];
+      const longDistance = ["HALF", "MARATHON", "ULTRA"].includes(answers.distance);
+      const shortFast = ["5K_OR_LESS", "10K"].includes(answers.distance);
+      reasons.push(reason("Profil", answers.profile, "Le Coach limite la sélection au profil indiqué. Les paires unisexes restent aussi visibles pour Homme et Femme."));
+      reasons.push(reason("Terrain", terrainLabel(answers.terrain), `Tu as indiqué courir principalement sur ${terrainLabel(answers.terrain).toLowerCase()}.`));
+      reasons.push(reason("Distance", distanceLabel(answers.distance), "La distance habituelle aide à éviter les modèles trop courts ou trop spécialisés."));
+
+      if (answers.goal === "record") { filters.usage = shortFast ? "Speed Work" : "Racing"; reasons.push(reason("Occasion", usageLabel(filters.usage), "Comme tu veux aller plus vite, le Coach privilégie des chaussures plus dynamiques.")); }
+      else if (answers.goal === "race") { filters.usage = longDistance ? "Long Run" : "Racing"; reasons.push(reason("Occasion", usageLabel(filters.usage), "Pour préparer une course, le Coach cherche une paire cohérente avec l'effort visé.")); }
+      else { filters.usage = "Daily Training"; reasons.push(reason("Occasion", usageLabel(filters.usage), "Pour courir régulièrement ou débuter, une chaussure polyvalente est plus logique.")); }
+      if (answers.terrain === "Trail" && answers.distance === "ULTRA") filters.usage = "Long Run";
+
+      if (answers.comfort === "protective" || answers.bodyBuild === "strong" || answers.runnerLevel === "beginner" || answers.distance === "MARATHON" || answers.distance === "ULTRA" || answers.frequency === "fourPlus") { filters.cushioning = "High"; reasons.push(reason("Amorti", cushioningLabel(filters.cushioning), "Ton profil indique un besoin de confort, de protection ou de volume d'entraînement.")); }
+      else if (answers.comfort === "light" && answers.goal === "record" && shortFast) { filters.cushioning = "Low"; reasons.push(reason("Amorti", cushioningLabel(filters.cushioning), "Tu recherches une sensation légère et rapide sur une distance courte.")); }
+      else { filters.cushioning = "Medium"; reasons.push(reason("Amorti", cushioningLabel(filters.cushioning), "Le Coach garde un équilibre entre confort et dynamisme.")); }
+
+      if (answers.footStrike !== "unknown") { filters.strike = answers.footStrike; reasons.push(reason("Attaque", strikeLabel(filters.strike), "Tu connais ta façon de poser le pied, donc le Coach utilise directement cette information.")); }
+      else if (answers.runnerLevel === "beginner") { filters.strike = "Heel"; reasons.push(reason("Attaque", strikeLabel(filters.strike), "Comme tu ne sais pas encore et que tu débutes, le Coach part sur l'option la plus fréquente et prudente.")); }
+      else if (answers.goal === "record") { filters.strike = answers.runnerLevel === "advanced" && shortFast ? "Forefoot" : "Midfoot"; reasons.push(reason("Attaque estimée", strikeLabel(filters.strike), "Pour un objectif vitesse, le Coach propose une attaque plus dynamique.")); }
+
+      if (answers.stability === "yes") { filters.pronation = "Pronator"; reasons.push(reason("Maintien", "Plus stable", "Tu as demandé plus de maintien. Le Coach évite donc les modèles trop neutres ou instables.")); }
+      else { reasons.push(reason("Foulée", "Non filtrée", "Sans indication claire, le Coach ne force pas ce critère pour ne pas exclure de bonnes chaussures.")); }
+      const budget = getBudgetFilter(answers.budget); if (budget) { filters.price = budget; reasons.push(reason("Budget", `Moins de ${budget} €`, "Le Coach applique ton budget comme plafond.")); }
+      return { filters, reasons };
+    }
+
+    function reason(title, value, text) { return { title, value, text }; }
+
+    function renderAdjustments(filters) {
+      const controls = [
+        { key: "level", label: "Profil", options: [["Homme", "Homme"], ["Femme", "Femme"], ["Unisexe", "Unisexe"], ["Enfant", "Enfant"]] },
+        { key: "terrain", label: "Terrain", options: [["Route", "Route"], ["Trail", "Trail"], ["Mixte", "Route et trail"]] },
+        { key: "distance", label: "Distance", options: [["5K_OR_LESS", "Moins de 5 km"], ["10K", "5 à 10 km"], ["HALF", "Semi"], ["MARATHON", "Marathon"], ["ULTRA", "Très long"]] },
+        { key: "usage", label: "Occasion", options: [["Daily Training", "Quotidien"], ["Long Run", "Sortie longue"], ["Speed Work", "Fractionné"], ["Racing", "Compétition"]] },
+        { key: "cushioning", label: "Amorti", options: [["Low", "Léger"], ["Medium", "Modéré"], ["High", "Maximaliste"]] },
+        { key: "strike", label: "Attaque", options: [["", "Non filtrée"], ["Heel", "Talon"], ["Midfoot", "Médio-pied"], ["Forefoot", "Avant-pied"]] },
+        { key: "pronation", label: "Maintien", options: [["", "Non filtré"], ["Pronator", "Plus stable"]] },
+        { key: "price", label: "Budget", options: [["", "Ouvert"], ["100", "< 100 €"], ["150", "< 150 €"], ["200", "< 200 €"]] }
+      ];
+      adjustmentsBox.innerHTML = `<div class="coach-adjustments-head"><h3>Tu veux ajuster ?</h3><p>Change un critère ici, la sélection se met à jour tout de suite.</p></div><div class="coach-adjustments-grid">${controls.map((control) => `<label class="coach-adjustment"><span>${control.label}</span><select data-filter="${control.key}">${control.options.map(([value, label]) => `<option value="${value}" ${String(filters[control.key] || "") === value ? "selected" : ""}>${label}</option>`).join("")}</select></label>`).join("")}</div>`;
+      adjustmentsBox.querySelectorAll("select").forEach((select) => select.addEventListener("change", () => { if (select.value === "") delete activePlan.filters[select.dataset.filter]; else activePlan.filters[select.dataset.filter] = select.value; refreshCoachResults(activePlan); }));
+    }
+
+    function refreshCoachResults(plan) { coachDisplayed = 12; coachMatches = applyCoachFilters(plan.filters); resultsTitle.textContent = `Nous avons trouvé ${coachMatches.length} chaussures adaptées.`; openFiltersLink.href = `index.html?${new URLSearchParams(plan.filters).toString()}`; renderCoachProducts(); }
+
+    function normalizeProducts(products) { return products.flatMap((product) => { const offers = product.offers || []; const offerColors = [...new Set(offers.map((offer) => offer.color).filter(Boolean))]; const colors = offerColors.length ? offerColors : product.colors || []; if (colors.length === 0) return [createShoe(product, "", offers)]; return colors.map((color) => createShoe(product, color, offers.filter((offer) => offer.color === color))); }); }
+    function createShoe(product, color, offers) { const safeOffers = offers.length ? offers : product.offers || []; const bestOffer = [...safeOffers].filter((offer) => offer.price).sort((a, b) => Number(a.price) - Number(b.price))[0] || {}; return { brand: product.brand, model: cleanProductName(product.name), color, image: bestOffer.image || product.image, product_url: bestOffer.url || "#", price: bestOffer.price || product.bestPrice, terrain: guessTerrain(product), usage: guessUsage(product), cushioning: guessCushioning(product), distance_tags: guessDistanceTags(product), level: guessProfile(product), pronation: guessPronation(product), strike: guessStrike(product), waterproof: isProductWaterproof(product), offers: safeOffers, name: product.name, category: product.category }; }
+
+    function applyCoachFilters(filters) { let matches = allShoes.filter((shoe) => { const matchTerrain = !filters.terrain || shoe.terrain === filters.terrain; const matchLevel = !filters.level || shoe.level === filters.level || ((filters.level === "Homme" || filters.level === "Femme") && shoe.level === "Unisexe"); const matchUsage = !filters.usage || shoe.usage === filters.usage; const matchDistance = !filters.distance || shoe.distance_tags.includes(filters.distance); const matchCushioning = !filters.cushioning || shoe.cushioning === filters.cushioning; const matchStrike = !filters.strike || shoe.strike === filters.strike; const matchPronation = !filters.pronation || shoe.pronation === filters.pronation; const matchPrice = !filters.price || Number(shoe.price) <= Number(filters.price); return matchTerrain && matchLevel && matchUsage && matchDistance && matchCushioning && matchStrike && matchPronation && matchPrice; }); if (matches.length < 8) { matches = allShoes.filter((shoe) => { const matchTerrain = !filters.terrain || shoe.terrain === filters.terrain; const matchLevel = !filters.level || shoe.level === filters.level || ((filters.level === "Homme" || filters.level === "Femme") && shoe.level === "Unisexe"); const matchDistance = !filters.distance || shoe.distance_tags.includes(filters.distance); const matchCushioning = !filters.cushioning || shoe.cushioning === filters.cushioning; const matchPrice = !filters.price || Number(shoe.price) <= Number(filters.price); return matchTerrain && matchLevel && matchDistance && matchCushioning && matchPrice; }); } return matches.sort((a, b) => Number(a.price) - Number(b.price)); }
+
+    function showCoachResults(plan) { activePlan = plan; coachDisplayed = 12; coachMatches = applyCoachFilters(plan.filters); resultsSection.classList.remove("hidden"); resultsTitle.textContent = `Nous avons trouvé ${coachMatches.length} chaussures adaptées.`; resultsSubtitle.textContent = "Le Coach a préparé cette sélection à partir de tes réponses. Tu peux corriger les critères ci-dessous."; openFiltersLink.href = `index.html?${new URLSearchParams(plan.filters).toString()}`; renderAdjustments(plan.filters); reasonsBox.innerHTML = plan.reasons.map((item) => `<article class="coach-reason"><span>${escapeHTML(item.title)}</span><strong>${escapeHTML(item.value)}</strong><p>${escapeHTML(item.text)}</p></article>`).join(""); renderCoachProducts(); resultsSection.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    function renderCoachProducts() { productsBox.innerHTML = ""; coachMatches.slice(0, coachDisplayed).forEach((shoe) => { const card = document.createElement("article"); card.className = "product-card"; card.innerHTML = `<div class="product-image-wrapper"><img class="product-image" src="${escapeHTML(shoe.image)}" alt="${escapeHTML(shoe.model)}"></div><div class="product-content"><div class="product-top"><div><p class="product-brand">${escapeHTML(shoe.brand)}</p><h3 class="product-name">${escapeHTML(shoe.model)}</h3><p class="product-meta">${usageLabel(shoe.usage)} - ${shoe.terrain.toLowerCase()}${shoe.color ? ` - ${escapeHTML(shoe.color)}` : ""}</p></div><p class="product-price"><small>à partir de</small><strong>${formatPrice(shoe.price)}€</strong></p></div>${renderOffers(shoe)}</div>`; productsBox.appendChild(card); }); moreBtn.classList.toggle("hidden", coachDisplayed >= coachMatches.length); }
+    function renderOffers(shoe) { const offers = dedupeOffersByRetailer((shoe.offers || []).filter((offer) => offer.url && offer.price)); if (!offers.length) return `<a class="product-link" href="${escapeHTML(shoe.product_url)}" target="_blank" rel="noopener">Voir la fiche</a>`; return `<div class="product-offers"><p class="product-offers-title">Offres disponibles</p>${offers.slice(0, 3).map((offer) => `<a class="product-offer" href="${escapeHTML(offer.url)}" target="_blank" rel="noopener"><span>${escapeHTML(offer.retailer || "Voir le site")}</span><strong>${formatPrice(offer.price)}€</strong></a>`).join("")}</div>`; }
+    function dedupeOffersByRetailer(offers) { const map = new Map(); offers.sort((a, b) => Number(a.price) - Number(b.price)).forEach((offer) => { const key = offer.retailer || "Voir le site"; if (!map.has(key)) map.set(key, offer); }); return [...map.values()]; }
+
+    function cleanProductName(name) { return (name || "Produit running").replace("Chaussures de running", "").replace("Chaussure de running", "").replace("Chaussure", "").replace("chaussure", "").trim(); }
+    function getProductText(product) { return `${product.name || ""} ${product.category || ""}`.toLowerCase(); }
+    function guessProfile(product) { const text = getProductText(product); if (/enfant|kid|kids|junior|fille|garçon|garcon/.test(text)) return "Enfant"; if (/unisexe|unisex|mixte/.test(text)) return "Unisexe"; if (/femme|women|woman| wos/.test(text)) return "Femme"; if (/homme| men| man/.test(text)) return "Homme"; return "Unisexe"; }
+    function guessTerrain(product) { const text = getProductText(product); if (/door.?to.?trail|route et trail|road.?to.?trail|gravel|hybride|hybrid|terra|terrex|pegasus trail/.test(text)) return "Mixte"; if (/trail|fell|mountain|montagne|agility peak|speedgoat|mafate|hierro|wildhorse|peregrine|cascadia|xodus|ultraventure|tomir/.test(text)) return "Trail"; if (/athlétisme|athletisme|track|piste|spike|pointes|distancestar|ambition|allroundstar/.test(text)) return "Piste"; return "Route"; }
+    function guessUsage(product) { const text = getProductText(product); if (/walking|marche|walk|randonnee|randonnée|hiking|freehiker/.test(text)) return "Walking"; if (/adios pro|pro evo|vaporfly|alphafly|metaspeed|carbon|carbone|elite|rocket x|fast-r|race|racing/.test(text)) return "Racing"; if (/takumi|adizero|boston|kinvara|streakfly|magic speed|tempo|speed|interval|fractionné|fractionne/.test(text)) return "Speed Work"; if (/ultraboost|adistar|supernova|invincible|vomero|triumph|glycerin|nimbus|more|max|long|ultra/.test(text)) return "Long Run"; return "Daily Training"; }
+    function guessCushioning(product) { const text = getProductText(product); if (/max|ultraboost|supernova|adistar|invincible|vomero|triumph|glycerin|nimbus|cumulus|more|bondi|clifton|skyward|magmax|infinite|skyrise/.test(text)) return "High"; if (/spike|pointes|distancestar|ambition|takumi|adios|streakfly|evo|minimal|barefoot|xero/.test(text)) return "Low"; return "Medium"; }
+    function guessDistanceTags(product) { const text = getProductText(product); if (/ultra|ultratrail|ultra trail|xodus|mafate|speedgoat|agility peak|hierro|tomir|ultraventure|trabuco|cascadia/.test(text)) return "HALF|MARATHON|ULTRA"; if (/adios pro|pro evo|vaporfly|alphafly|metaspeed|prime x|carbon|carbone/.test(text)) return "10K|HALF|MARATHON"; if (/boston|supernova|ultraboost|adistar|galaxy|pegasus|ride|ghost|triumph|nimbus|cumulus|vomero/.test(text)) return "10K|HALF|MARATHON"; if (/takumi|adizero|streakfly|spike|pointes|distancestar|ambition/.test(text)) return "5K_OR_LESS|10K|HALF"; return "5K_OR_LESS|10K"; }
+    function guessPronation(product) { const text = getProductText(product); if (/stability|stable|support|guide|gts|structure|kayano|gt-2000|gt 2000|hurricane|paradigm|arahi|vongo|tempus|inspire|echelon/.test(text)) return "Pronator"; return "Neutral"; }
+    function guessStrike(product) { const text = getProductText(product); if (/spike|pointes|distancestar|ambition|takumi|streakfly|adios pro|vaporfly|alphafly|metaspeed/.test(text)) return "Forefoot"; if (/speed|tempo|boston|kinvara|rebel|mach|endorphin/.test(text)) return "Midfoot"; return "Heel"; }
+    function isProductWaterproof(product) { const text = getProductText(product); const material = (product.offers || []).map((offer) => offer.material || "").join(" ").toLowerCase(); return Boolean(product.waterproof) || /gore[-\s]?tex|goretex|\bgtx\b/i.test(`${text} ${material}`); }
+    function escapeHTML(value) { return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); }
+    function formatPrice(price) { const number = Number(price); return Number.isNaN(number) ? price : Math.round(number); }
+    function terrainLabel(value) { return { Route: "Route", Trail: "Trail", Mixte: "Route et trail" }[value] || value; }
+    function distanceLabel(value) { return { "5K_OR_LESS": "Moins de 5 km", "10K": "5 à 10 km", HALF: "Semi-marathon", MARATHON: "Marathon", ULTRA: "Très longues distances" }[value] || value; }
+    function usageLabel(value) { return { "Daily Training": "Entraînement quotidien", "Long Run": "Sortie longue", "Speed Work": "Fractionné", Racing: "Compétition", Walking: "Marche" }[value] || value; }
+    function cushioningLabel(value) { return { Low: "Léger", Medium: "Modéré", High: "Maximaliste" }[value] || value; }
+    function strikeLabel(value) { return { Heel: "Talon", Midfoot: "Médio-pied", Forefoot: "Avant-pied" }[value] || value; }
+
+    nextBtn.addEventListener("click", () => { if (!currentStepIsValid()) { steps[currentStep].classList.add("needs-answer"); return; } steps[currentStep].classList.remove("needs-answer"); currentStep = Math.min(currentStep + 1, steps.length - 1); showStep(currentStep); });
+    backBtn.addEventListener("click", () => { currentStep = Math.max(currentStep - 1, 0); showStep(currentStep); });
+    budgetRange.addEventListener("input", () => { budgetValue.textContent = budgetRange.value; });
+    form.addEventListener("submit", (event) => { event.preventDefault(); showCoachResults(buildCoachPlan(getAnswers())); });
+    moreBtn.addEventListener("click", () => { coachDisplayed += 12; renderCoachProducts(); });
+    showStep(currentStep);
+  </script>
 </body>
 </html>

@@ -1,89 +1,515 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Courses</title>
+  <title>RunGuide | Ma prochaine course</title>
+  <meta name="description" content="Trouvez une course en France selon le département, la distance, la date, le niveau et le prix.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQO4r2ATkK8ZlN2DRNAw5jvkdth7P8E=" crossorigin="">
+  <link rel="stylesheet" href="style.css?v=mapfix1" />
 </head>
 
 <body>
-
   <header class="navbar">
     <div class="logo">
       <img src="assets/logo runguide fond blanc.svg" alt="RunGuide">
     </div>
 
     <nav class="nav-links">
-  <a href="index.html" class="active">Trouver ma paire</a>
-  <a href="courses.html">Ma prochaine course</a>
-  <a href="records.html">Mes records</a>
-  <a href="conseils.html">Guides & conseils</a>
+      <a href="index.html">Trouver ma paire</a>
+      <a href="courses.html" class="active">Ma prochaine course</a>
+      <a href="records.html">Mes records</a>
+      <a href="conseils.html">Guides & conseils</a>
     </nav>
 
     <button class="login-btn">Connexion</button>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZE5SKBS0Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZE5SKBS0Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4ZE5SKBS0Y');
+    </script>
 
-  gtag('config', 'G-4ZE5SKBS0Y');
-</script>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZE5SKBS0Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4ZE5SKBS0Y');
-</script>
-
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xfm1e1tzz1");
-</script>
+      })(window, document, "clarity", "script", "xfm1e1tzz1");
+    </script>
 
-<link rel="canonical" href="https://runguide.fr/courses.html">
-
+    <link rel="canonical" href="https://runguide.fr/courses.html">
   </header>
 
-  <main class="coach-page">
-  <section class="coach-card">
-    <h1>🏁 Ma prochaine course</h1>
-    <p>La recherche de courses est en cours de développement.</p>
-    <p>Vous pourrez bientôt trouver des courses près de chez vous selon la distance, la date et le lieu.</p>
-    <strong>🚧 Disponible prochainement.</strong>
-    <a href="index.html">Retour à l’accueil</a>
-  </section>
-</main>
+  <main class="race-page-v2">
+    <section class="race-top-v2">
+      <div class="race-map-panel-v2">
+        <div id="raceMap" class="race-map-v2" aria-label="Carte des courses"></div>
+        <div class="race-map-fallback-v2" id="raceMapFallback" hidden>
+          <strong>Carte indisponible</strong>
+          <span>Les courses restent visibles dans la liste.</span>
+        </div>
+      </div>
+
+      <div class="race-hero-panel-v2">
+        <span class="race-eyebrow-v2">RunGuide Courses</span>
+        <h1>Ma prochaine course</h1>
+        <p>Explore les courses disponibles et trouve celle qui correspond à ton niveau, ta distance et ton budget.</p>
+        <div class="race-mini-stats-v2">
+          <div><strong id="raceTotalCount">0</strong><span>courses</span></div>
+          <div><strong id="raceDepartmentCount">0</strong><span>départements</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="race-body-v2">
+      <section class="race-results-v2">
+        <div class="race-list-toolbar-v2">
+          <div>
+            <span class="race-eyebrow-v2">Résultats</span>
+            <h2 id="raceResultsTitle">Courses trouvées</h2>
+          </div>
+          <select id="raceSortSelect" aria-label="Trier les courses">
+            <option value="date">Date la plus proche</option>
+            <option value="price">Prix le plus bas</option>
+            <option value="distance">Distance la plus courte</option>
+          </select>
+        </div>
+        <div id="raceList" class="race-list-v2"></div>
+        <p id="raceEmpty" class="race-empty-v2" hidden>Aucune course ne correspond à ces filtres.</p>
+      </section>
+
+      <aside class="race-right-v2">
+        <section class="race-filters-v2" aria-label="Filtres courses">
+          <div class="race-filter-title-v2">
+            <span class="race-eyebrow-v2">Filtres</span>
+            <button id="raceResetBtn" type="button">Réinitialiser</button>
+          </div>
+
+          <label class="race-search-filter-v2">
+            <span>Recherche</span>
+            <input id="raceSearch" type="search" placeholder="Course, ville..." autocomplete="off">
+          </label>
+
+          <div class="race-filter-two-v2">
+            <label>
+              <span>Lieu</span>
+              <select id="raceDepartmentFilter"><option value="">Tous</option></select>
+            </label>
+            <label>
+              <span>Ville</span>
+              <select id="raceCityFilter"><option value="">Toutes</option></select>
+            </label>
+          </div>
+
+          <div class="race-filter-two-v2">
+            <label>
+              <span>Date</span>
+              <select id="raceDateFilter">
+                <option value="">Toutes</option>
+                <option value="30">30 jours</option>
+                <option value="90">3 mois</option>
+                <option value="180">6 mois</option>
+                <option value="future">à venir</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="race-filter-two-v2">
+            <label>
+              <span>Distance</span>
+              <select id="raceDistanceFilter">
+                <option value="">Toutes</option>
+                <option value="short">- 5 km</option>
+                <option value="5k">5 km</option>
+                <option value="10k">10 km</option>
+                <option value="semi">Semi</option>
+                <option value="marathon">Marathon</option>
+                <option value="ultra">Ultra</option>
+              </select>
+            </label>
+            <label>
+              <span>Niveau</span>
+              <select id="raceLevelFilter"><option value="">Tous</option></select>
+            </label>
+            <label>
+              <span>Médaille</span>
+              <select id="raceMedalFilter"><option value="">Toutes</option></select>
+            </label>
+          </div>
+
+          <label class="race-price-v2">
+            <span>Prix max</span>
+            <input id="racePriceFilter" type="range" min="0" max="150" step="5" value="150">
+            <strong id="racePriceLabel">150 €</strong>
+          </label>
+        </section>
+
+        <section class="race-user-card-v2 race-records-v2">
+          <span class="race-eyebrow-v2">Mes records</span>
+          <h3>À compléter</h3>
+          <p>Cette fonctionnalité sera bientôt disponible.</p>
+          <div class="race-empty-lines-v2"><span></span><span></span><span></span></div>
+        </section>
+
+        <section class="race-user-card-v2">
+          <span class="race-eyebrow-v2">Objectif</span>
+          <h3>Ma prochaine course</h3>
+          <p>Tu pourras bientôt enregistrer ta course cible ici.</p>
+        </section>
+
+        <section class="race-user-card-v2">
+          <span class="race-eyebrow-v2">Préparation</span>
+          <h3>Plan & rappels</h3>
+          <p>Les rappels et le suivi de préparation arrivent bientôt.</p>
+        </section>
+      </aside>
+    </section>
+  </main>
 
   <footer class="footer">
-  <div class="footer-content">
-    <p>© 2026 RunGuide</p>
+    <div class="footer-content">
+      <p>© 2026 RunGuide</p>
+      <nav class="footer-links">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="affiliation.html">Affiliation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
 
-    <nav class="footer-links">
-      <a href="mentions-legales.html">Mentions légales</a>
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      <a href="affiliation.html">Affiliation</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const csvUrl = "data/courses/courses_geocode.csv";
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let races = [];
+    let filteredRaces = [];
+    let raceMap = null;
+    let markerLayer = null;
 
+    const els = {
+      search: document.getElementById("raceSearch"),
+      department: document.getElementById("raceDepartmentFilter"),
+      city: document.getElementById("raceCityFilter"),
+      distance: document.getElementById("raceDistanceFilter"),
+      date: document.getElementById("raceDateFilter"),
+      level: document.getElementById("raceLevelFilter"),
+      medal: document.getElementById("raceMedalFilter"),
+      price: document.getElementById("racePriceFilter"),
+      priceLabel: document.getElementById("racePriceLabel"),
+      sort: document.getElementById("raceSortSelect"),
+      reset: document.getElementById("raceResetBtn"),
+      list: document.getElementById("raceList"),
+      empty: document.getElementById("raceEmpty"),
+      total: document.getElementById("raceTotalCount"),
+      departments: document.getElementById("raceDepartmentCount"),
+      title: document.getElementById("raceResultsTitle"),
+      fallback: document.getElementById("raceMapFallback")
+    };
+
+    function detectCSVDelimiter(text) {
+      const firstLine = String(text || "").split(/\r?\n/)[0] || "";
+      const semicolons = (firstLine.match(/;/g) || []).length;
+      const commas = (firstLine.match(/,/g) || []).length;
+      return semicolons > commas ? ";" : ",";
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = "";
+      let quoted = false;
+      const delimiter = detectCSVDelimiter(text);
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+        if (char === '"' && quoted && next === '"') { value += '"'; i++; }
+        else if (char === '"') quoted = !quoted;
+        else if (char === delimiter && !quoted) { row.push(value); value = ""; }
+        else if ((char === "\n" || char === "\r") && !quoted) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(value);
+          if (row.some((cell) => cell.trim() !== "")) rows.push(row);
+          row = [];
+          value = "";
+        } else value += char;
+      }
+      if (value || row.length) { row.push(value); rows.push(row); }
+
+      const headers = rows.shift().map((header) => header.replace(/^\uFEFF/, "").trim());
+      return rows.map((cells) => {
+        if (/^\d+$/.test(cells[0] || "") && !parseFrenchDate(cells[1]) && parseFrenchDate(cells[2])) {
+          cells.shift();
+        }
+        return Object.fromEntries(headers.map((header, index) => [header, (cells[index] || "").trim()]));
+      });
+    }
+
+    function parseFrenchDate(value) {
+      const text = String(value || "").toLowerCase().trim();
+      const months = {
+        janvier:0, janv:0,
+        fevrier:1, "février":1, "février":1, fevr:1, "févr":1,
+        mars:2,
+        avril:3, avr:3,
+        mai:4,
+        juin:5,
+        juillet:6, juil:6,
+        aout:7, "août":7, "août":7,
+        septembre:8, sept:8,
+        octobre:9, oct:9,
+        novembre:10, nov:10,
+        decembre:11, "décembre":11, "décembre":11, dec:11, "déc":11
+      };
+      const monthIndex = (value) => months[String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")];
+      const shortDash = text.match(/(\d{1,2})[-/ ]([a-zàâéèêëîïôöùûüç]+)[-/ ](\d{2,4})/i);
+      if (shortDash && monthIndex(shortDash[2]) !== undefined) {
+        const year = Number(shortDash[3].length === 2 ? `20${shortDash[3]}` : shortDash[3]);
+        return new Date(year, monthIndex(shortDash[2]), Number(shortDash[1]));
+      }
+      const range = text.match(/(\d{1,2})\s*-\s*\d{1,2}\s+([a-zàâéèêëîïôöùûüç]+)\s+(\d{4})/i);
+      if (range && monthIndex(range[2]) !== undefined) return new Date(Number(range[3]), monthIndex(range[2]), Number(range[1]));
+      const exact = text.match(/(\d{1,2})\s+([a-zàâéèêëîïôöùûüç]+)\s+(\d{4})/i);
+      if (exact && monthIndex(exact[2]) !== undefined) return new Date(Number(exact[3]), monthIndex(exact[2]), Number(exact[1]));
+      const monthOnly = text.match(/([a-zàâéèêëîïôöùûüç]+)\s+(\d{4})/i);
+      if (monthOnly && monthIndex(monthOnly[1]) !== undefined) return new Date(Number(monthOnly[2]), monthIndex(monthOnly[1]), 1);
+      return null;
+    }
+    function parsePrice(value) {
+      const match = String(value || "").replace(",", ".").match(/\d+(?:\.\d+)?/);
+      return match ? Number(match[0]) : null;
+    }
+
+    function parseDistances(value) {
+      return String(value || "").split(/[,;/]/).map((part) => Number(part.trim().replace(",", "."))).filter((number) => !Number.isNaN(number));
+    }
+
+    function getDepartmentCode(value) {
+      return String(value || "").trim().toUpperCase().padStart(2, "0");
+    }
+
+    function getField(row, names) {
+      for (const name of names) {
+        if (row[name] !== undefined && row[name] !== "") return row[name];
+      }
+      return "";
+    }
+
+    function enrichRace(row, index) {
+      const lat = Number(row.latitude);
+      const lng = Number(row.longitude);
+      const department = getField(row, ["Département", "Département", "Departement"]);
+      const distances = getField(row, ["Distance(s) km", "Distances", "Distance"]);
+      const medal = getField(row, ["Médaille", "Médaille", "Medaille"]);
+      const url = getField(row, ["Lien", "URL", "Url", "Site"]);
+      return {
+        id: index,
+        name: row.Course || "Course sans nom",
+        dateLabel: row.Date || "Date à confirmer",
+        dateObject: parseFrenchDate(row.Date),
+        city: row.Ville || "Ville à confirmer",
+        department: getDepartmentCode(department),
+        distances: parseDistances(distances),
+        distanceLabel: distances || "Distance à confirmer",
+        price: parsePrice(row.Prix),
+        priceLabel: row.Prix || "Prix à confirmer",
+        medal: medal || "Non précisé",
+        level: row.Niveau || "Tous niveaux",
+        url,
+        hasOfficialUrl: /^https?:\/\//i.test(url),
+        lat: Number.isFinite(lat) ? lat : null,
+        lng: Number.isFinite(lng) ? lng : null
+      };
+    }
+
+    function fillFilters() {
+      [...new Set(races.map((race) => race.department).filter(Boolean))].sort().forEach((department) => {
+        const option = document.createElement("option");
+        option.value = department;
+        option.textContent = department;
+        els.department.appendChild(option);
+      });
+      [...new Set(races.map((race) => race.city).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr")).forEach((city) => {
+        const option = document.createElement("option");
+        option.value = city;
+        option.textContent = city;
+        els.city.appendChild(option);
+      });
+      [...new Set(races.map((race) => race.level).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr")).forEach((level) => {
+        const option = document.createElement("option");
+        option.value = level;
+        option.textContent = level;
+        els.level.appendChild(option);
+      });
+      [...new Set(races.map((race) => race.medal).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr")).forEach((medal) => {
+        const option = document.createElement("option");
+        option.value = medal;
+        option.textContent = medal;
+        els.medal.appendChild(option);
+      });
+    }
+
+    function distanceMatches(race) {
+      if (!els.distance.value) return true;
+      const distances = race.distances;
+      if (els.distance.value === "short") return distances.some((distance) => distance < 5);
+      if (els.distance.value === "5k") return distances.some((distance) => distance >= 4.5 && distance <= 6);
+      if (els.distance.value === "10k") return distances.some((distance) => distance >= 9 && distance <= 11);
+      if (els.distance.value === "semi") return distances.some((distance) => distance >= 19 && distance <= 23);
+      if (els.distance.value === "marathon") return distances.some((distance) => distance >= 40 && distance <= 43);
+      if (els.distance.value === "ultra") return distances.some((distance) => distance >= 45);
+      return true;
+    }
+
+    function dateMatches(race) {
+      if (!els.date.value) return true;
+      if (!race.dateObject) return els.date.value !== "future";
+      if (race.dateObject < today) return false;
+      if (els.date.value === "future") return true;
+      const limit = new Date(today);
+      limit.setDate(limit.getDate() + Number(els.date.value));
+      return race.dateObject <= limit;
+    }
+
+    function applyRaceFilters() {
+      const search = els.search.value.trim().toLowerCase();
+      const maxPrice = Number(els.price.value);
+      els.priceLabel.textContent = `${maxPrice} €`;
+
+      filteredRaces = races.filter((race) => {
+        const searchText = `${race.name} ${race.city} ${race.department} ${race.level}`.toLowerCase();
+        const searchOk = !search || searchText.includes(search);
+        const departmentOk = !els.department.value || race.department === els.department.value;
+        const cityOk = !els.city.value || race.city === els.city.value;
+        const levelOk = !els.level.value || race.level === els.level.value;
+        const medalOk = !els.medal.value || race.medal === els.medal.value;
+        const priceOk = race.price === null || race.price <= maxPrice;
+        return searchOk && departmentOk && cityOk && levelOk && medalOk && priceOk && distanceMatches(race) && dateMatches(race);
+      });
+
+      if (els.sort.value === "price") filteredRaces.sort((a,b)=>(a.price ?? 9999) - (b.price ?? 9999));
+      else if (els.sort.value === "distance") filteredRaces.sort((a,b)=>Math.min(...a.distances) - Math.min(...b.distances));
+      else filteredRaces.sort((a,b)=>(a.dateObject || new Date("2099-01-01")) - (b.dateObject || new Date("2099-01-01")));
+
+      renderRaces();
+      updateMap();
+    }
+
+    function renderRaces() {
+      els.total.textContent = filteredRaces.length;
+      els.departments.textContent = new Set(filteredRaces.map((race) => race.department)).size;
+      els.title.textContent = `${filteredRaces.length} course${filteredRaces.length > 1 ? "s" : ""} trouvée${filteredRaces.length > 1 ? "s" : ""}`;
+      els.empty.hidden = filteredRaces.length > 0;
+      els.list.innerHTML = filteredRaces.slice(0, 80).map((race) => `
+        <article class="race-row-v2" data-race-id="${race.id}">
+          <div class="race-date-v2"><strong>${escapeHTML(getDay(race))}</strong><span>${escapeHTML(getMonth(race))}</span></div>
+          <div class="race-info-v2">
+            <p>${escapeHTML(race.city)} à ${escapeHTML(race.department)}</p>
+            <h3>${escapeHTML(race.name)}</h3>
+            <div>${race.distances.slice(0, 4).map((distance) => `<span>${distance} km</span>`).join("")}<span>${escapeHTML(race.priceLabel)}</span></div>
+          </div>
+          <span class="race-level-v2">${escapeHTML(race.level)}</span>
+          ${race.hasOfficialUrl ? `<a class="race-link-v2" href="${escapeHTML(race.url)}" target="_blank" rel="noopener">Voir</a>` : `<span class="race-link-missing-v2">à compléter</span>`}
+        </article>`).join("");
+    }
+
+    function getDay(race) { return race.dateObject ? String(race.dateObject.getDate()).padStart(2, "0") : "--"; }
+    function getMonth(race) { return race.dateObject ? new Intl.DateTimeFormat("fr-FR", { month: "short" }).format(race.dateObject).replace(".", "") : "TBC"; }
+
+    function initMap() {
+      if (raceMap) return;
+      if (!window.L) {
+        els.fallback.hidden = false;
+        return;
+      }
+
+      els.fallback.hidden = true;
+      raceMap = L.map("raceMap", {
+        scrollWheelZoom: false,
+        zoomControl: false,
+        attributionControl: true
+      }).setView([46.8, 2.4], 5.5);
+
+      L.control.zoom({ position: "bottomright" }).addTo(raceMap);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: "© OpenStreetMap"
+      }).addTo(raceMap);
+      markerLayer = L.layerGroup().addTo(raceMap);
+
+      setTimeout(() => raceMap.invalidateSize(), 150);
+    }
+
+    function updateMap() {
+      if (!raceMap || !markerLayer) return;
+      markerLayer.clearLayers();
+      const visible = filteredRaces.filter((race) => race.lat && race.lng).slice(0, 160);
+      visible.forEach((race) => {
+        const marker = L.circleMarker([race.lat, race.lng], { radius: 6, color: "#0F172A", weight: 2, fillColor: "#FFA941", fillOpacity: 0.95 }).addTo(markerLayer);
+        marker.bindPopup(`<strong>${escapeHTML(race.name)}</strong><br>${escapeHTML(race.city)} à ${escapeHTML(race.department)}<br>${escapeHTML(race.distanceLabel)} km<br>${race.hasOfficialUrl ? `<a href="${escapeHTML(race.url)}" target="_blank" rel="noopener">Site officiel</a>` : "Lien à compléter"}`);
+      });
+      requestAnimationFrame(() => raceMap.invalidateSize());
+      if (visible.length > 0) {
+        raceMap.fitBounds(L.latLngBounds(visible.map((race) => [race.lat, race.lng])), { padding: [24, 24], maxZoom: 10 });
+        setTimeout(() => raceMap.invalidateSize(), 120);
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+    }
+
+    function resetFilters() {
+      els.search.value = "";
+      els.department.value = "";
+      els.city.value = "";
+      els.distance.value = "";
+      els.date.value = "";
+      els.level.value = "";
+      els.medal.value = "";
+      els.price.value = "150";
+      els.sort.value = "date";
+      applyRaceFilters();
+    }
+
+    [els.search, els.department, els.city, els.distance, els.date, els.level, els.medal, els.price, els.sort].forEach((element) => {
+      element.addEventListener("input", applyRaceFilters);
+      element.addEventListener("change", applyRaceFilters);
+    });
+    els.reset.addEventListener("click", resetFilters);
+
+    initMap();
+
+    fetch(csvUrl)
+      .then((response) => response.text())
+      .then((text) => {
+        races = parseCSV(text).map(enrichRace);
+        filteredRaces = [...races];
+        fillFilters();
+        applyRaceFilters();
+      })
+      .catch((error) => {
+        console.error("Impossible de charger les courses", error);
+        els.empty.hidden = false;
+        els.empty.textContent = "Impossible de charger les courses.";
+      });
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+

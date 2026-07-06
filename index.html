@@ -147,6 +147,7 @@
             <option value="">Tous</option>
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
+            <option value="Unisexe">Unisexe</option>
             <option value="Enfant">Enfant</option>
           </select>
         </label>
@@ -159,7 +160,6 @@
             <option value="Speed Work">Fractionné</option>
             <option value="Long Run">Sortie longue</option>
             <option value="Racing">Compétition</option>
-            <option value="Recovery">Récupération</option>
             <option value="Walking">Marche</option>
           </select>
         </label>
@@ -176,6 +176,17 @@
         </label>
 
         <label class="filter-box">
+          <span>Budget</span>
+          <select id="priceFilter">
+            <option value="">Tous</option>
+            <option value="100">&lt;100€</option>
+            <option value="150">&lt;150€</option>
+            <option value="200">&lt;200€</option>
+            <option value="200_PLUS">&gt;200€</option>
+          </select>
+        </label>
+
+        <label class="filter-box">
           <span>Distance</span>
           <select id="distanceFilter">
             <option value="">Toutes</option>
@@ -188,23 +199,9 @@
         </label>
 
         <label class="filter-box">
-          <span>Amorti</span>
-          <select id="cushioningFilter">
-            <option value="">Tous</option>
-            <option value="Low">Léger</option>
-            <option value="Medium">Modéré</option>
-            <option value="High">Maximaliste</option>
-          </select>
-        </label>
-
-        <label class="filter-box">
-          <span>Budget</span>
-          <select id="priceFilter">
-            <option value="">Tous</option>
-            <option value="100">&lt;100€</option>
-            <option value="150">&lt;150€</option>
-            <option value="200">&lt;200€</option>
-            <option value="200_PLUS">&gt;200€</option>
+          <span>Marque</span>
+          <select id="brandFilter">
+            <option value="">Toutes</option>
           </select>
         </label>
 
@@ -217,18 +214,12 @@
       <div class="filters-grid advanced-filters" id="advancedFilters">
 
         <label class="filter-box">
-          <span>Imperméable</span>
-          <select id="waterproofFilter">
+          <span>Amorti</span>
+          <select id="cushioningFilter">
             <option value="">Tous</option>
-            <option value="Yes">Oui</option>
-            <option value="No">Non</option>
-          </select>
-        </label>
-
-        <label class="filter-box">
-          <span>Marque</span>
-          <select id="brandFilter">
-            <option value="">Toutes</option>
+            <option value="Low">Léger</option>
+            <option value="Medium">Modéré</option>
+            <option value="High">Maximaliste</option>
           </select>
         </label>
 
@@ -236,17 +227,6 @@
           <span>Couleur</span>
           <select id="colorFilter">
             <option value="">Toutes</option>
-            <option value="Noir">Noir</option>
-            <option value="Blanc">Blanc</option>
-            <option value="Bleu">Bleu</option>
-            <option value="Rouge">Rouge</option>
-            <option value="Vert">Vert</option>
-            <option value="Jaune">Jaune</option>
-            <option value="Orange">Orange</option>
-            <option value="Rose">Rose</option>
-            <option value="Violet">Violet</option>
-            <option value="Gris">Gris</option>
-            <option value="Multicolore">Multicolore</option>
           </select>
         </label>
 
@@ -256,7 +236,6 @@
             <option value="">Toutes</option>
             <option value="Neutral">Neutre</option>
             <option value="Pronator">Pronateur</option>
-            <option value="Supinator">Supinateur</option>
           </select>
         </label>
 
@@ -271,6 +250,15 @@
         </label>
 
         <label class="filter-box">
+          <span>Imperméable</span>
+          <select id="waterproofFilter">
+            <option value="">Tous</option>
+            <option value="Yes">Oui</option>
+            <option value="No">Non</option>
+          </select>
+        </label>
+
+        <label class="filter-box hidden">
           <span>Largeur du pied</span>
           <select id="widthFilter">
             <option value="">Toutes</option>
@@ -280,7 +268,14 @@
           </select>
         </label>
 
-        <label class="filter-box">
+        <label class="filter-box hidden">
+          <span>Pointure</span>
+          <select id="sizeFilter">
+            <option value="">Toutes</option>
+          </select>
+        </label>
+
+        <label class="filter-box hidden">
           <span>Année de sortie</span>
           <select id="yearFilter">
             <option value="">Toutes</option>
@@ -289,13 +284,6 @@
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022_BEFORE">2022 et avant</option>
-          </select>
-        </label>
-
-        <label class="filter-box">
-          <span>Pointure</span>
-          <select id="sizeFilter">
-            <option value="">Toutes</option>
           </select>
         </label>
 
